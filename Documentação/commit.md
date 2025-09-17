@@ -1,4 +1,4 @@
-#📝 Guia de Commits
+# 📝 Guia de Commits
 Este documento estabelece o padrão para as mensagens de commit neste projeto. Seguir esta convenção garante um histórico de Git limpo, legível e que pode ser utilizado para gerar automaticamente logs de mudanças (changelogs), facilitar a depuração e melhorar a comunicação entre o time.
 
 ## 🚀 Estrutura da Mensagem
