@@ -1,0 +1,81 @@
+/* Login.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #5e110f 0%,#c3231f 100%);
+    width: 100vw;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 420px;
+}
+
+.title {
+    margin-bottom: 24px;
+    text-align: center;
+    color: #333;
+}
+
+.inputGroup {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.label {
+    display: block;
+    margin-bottom: 6px;
+    color: #555;
+    font-weight: bold;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #C3231F;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #ee3c39;
+}
+a{
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: bold;
+    margin-top: 16px;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: #d32f2f;
+    margin-bottom: 10px;
+    text-align: center;
+}
