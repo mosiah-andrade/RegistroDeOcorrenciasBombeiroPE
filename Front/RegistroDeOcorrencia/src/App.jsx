@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Cadastrar from './pages/cadastrar/Cadastrar';
 import Login from './pages/login/Login';
 import HomePage from './pages/HomePage'; // Importa a HomePage
+import './index.css';
 
 function App() {
   return (

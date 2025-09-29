@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Cadastrar.module.css";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../../assets/logo.svg";
 
 const Cadastrar = () => {
     const [form, setForm] = useState({
@@ -60,8 +60,9 @@ const Cadastrar = () => {
 
     return (
         <div className={styles.container}>
+            <img src={logo} alt="Logo" className={styles.logo} />
+            <h2>Insira suas informações</h2>
             <form className={styles.form} id="cadastrarForm" onSubmit={handleSubmit} method="POST" >
-                <h2 className={styles.title}>Cadastrar</h2>
                 <div className={styles.inputGroup}>
                     <label htmlFor="username" className={styles.label}>Nome de Usuário</label>
                     <input

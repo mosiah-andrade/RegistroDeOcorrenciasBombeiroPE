@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Login.module.css";
+import logo from "../../assets/logo.svg";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -29,8 +30,10 @@ const Login = () => {
 
     return (
         <div className={styles.container}>
+            <img src={logo} alt="Logo" className={styles.logo} />
+            <h1>CBMPE</h1>
+            <h2>Insira suas informações de cadastro</h2>
             <form className={styles.form} id="loginForm" onSubmit={handleSubmit}>
-                <h2 className={styles.title}>Login</h2>
                 {error && <div style={{ color: "red" }}>{error}</div>}
                 <div className={styles.inputGroup}>
                     <label htmlFor="username" className={styles.label}>Usuário</label>
@@ -55,8 +58,9 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit" className={styles.button}>Entrar</button>
-                <a href="/cadastrar">Sing in</a>
+                <p>Esqueceu sua senha? <a href="#">Clique aqui</a> </p>
             </form>
+               <p>Não possui uma conta? <a href="/cadastrar">Clique aqui</a></p>
         </div>
     );
 };
