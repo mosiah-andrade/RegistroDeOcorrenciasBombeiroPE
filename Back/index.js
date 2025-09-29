@@ -7,10 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
-
-// CORS robusto para Codespace e fallback local
 const allowedOrigins = [
-    'https://psychic-meme-v6j69rx6xr62666w-5173.app.github.dev',
     'http://localhost:5173',
     'http://localhost:3000',
 ];

@@ -34,8 +34,7 @@ const Cadastrar = () => {
             return;
         }
 
-        // Integração com o back-end Node.js/MongoDB
-        fetch("https://psychic-meme-v6j69rx6xr62666w-5000.app.github.dev/api/register", {
+        fetch("http://localhost:5000/api/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -48,9 +47,8 @@ const Cadastrar = () => {
             .then(async (response) => {
                 const data = await response.json();
                 if (response.ok) {
-                    // Cadastro realizado com sucesso
                     alert("Cadastro realizado com sucesso!");
-                    navigate("/"); // Redireciona para login
+                    navigate("/");
                 } else {
                     setError(data.message || "Erro ao cadastrar usuário");
                 }

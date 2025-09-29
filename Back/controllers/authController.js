@@ -24,17 +24,18 @@ exports.login = async (req, res) => {
     if (!username || !password) return res.status(400).json({ message: 'Por favor, preencha todos os campos.' })
 
     try {
-        const User = await User.findOne({ username })
-        if (!User) return res.status(400).json({ message: 'Usuário não encontrado.' })
+        const user = await User.findOne({ username })
+        if (!user) return res.status(400).json({ message: 'Usuário não encontrado.' })
 
-        const validar = await bcrypt.compare(password, User.password)
+        const validar = await bcrypt.compare(password, user.password)
         if (!validar) return res.status(400).json({ message: 'Senha incorreta.' })
 
         const token = jwt.sign(
-            { id: User._id, username: User.username },
+            { id: user._id, username: user.username },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         )
+        res.json({ token })
     } catch (e) {
         res.status(500).json({ message: 'Erro ao fazer login' })
     }
