@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 
 // Estilos definidos como objetos JavaScript
 const styles = {
-    // ... (Seus estilos permanecem os mesmos)
     sidebar: (isOpen) => ({
       position: 'fixed',
       top: 0,
       left: 0,
       width: '250px',
       height: '100%',
-      backgroundColor: '#2c3e50', // Cor escura
-      color: 'white',
+      backgroundColor: '#EEEBE3', // Cor escura
+      color: '#1a1a1a',
       padding: '20px',
       boxShadow: '2px 0 5px rgba(0, 0, 0, 0.5)',
       transform: isOpen ? 'translateX(0)' : 'translateX(-100%)', // Transição chave
@@ -32,7 +31,7 @@ const styles = {
     closeBtn: {
       background: 'none',
       border: 'none',
-      color: 'white',
+      color: '#C62430',
       fontSize: '30px',
       cursor: 'pointer',
       padding: 0,
@@ -46,7 +45,7 @@ const styles = {
       marginBottom: '15px',
     },
     link: {
-      color: 'white',
+      color: '#1a1a1a',
       textDecoration: 'none',
       fontSize: '16px',
       display: 'block',
@@ -95,7 +94,7 @@ const Sidebar = () => {
             {/* A própria sidebar */}
             <div style={styles.sidebar(isOpen)}>
                 <div style={styles.sidebarHeader}>
-                    <h3 style={styles.sidebarTitle}>Navegação</h3>
+                    <h3 style={styles.sidebarTitle}>Configuração</h3>
 
                     {/* Botão de fechar (X) dentro da sidebar. Ele só fica visível quando a sidebar está aberta. */}
                     <button style={styles.closeBtn} onClick={toggleSidebar}>
@@ -105,16 +104,16 @@ const Sidebar = () => {
 
                 <ul style={styles.sidebarLinks}>
                     <li style={styles.linkItem}>
-                        <a href="#dashboard" style={styles.link}>Dashboard</a>
+                        <a href="/editarPerfil" style={styles.link}>Editar Perfil</a>
                     </li>
                     <li style={styles.linkItem}>
-                        <a href="#perfil" style={styles.link}>Meu Perfil</a>
+                        <a href="/termos" style={styles.link}>Termos de uso</a>
                     </li>
                     <li style={styles.linkItem}>
-                        <a href="#config" style={styles.link}>Configurações</a>
+                        <a href="/preferencias " style={styles.link}>Preferências </a>
                     </li>
                     <li style={styles.linkItem}>
-                        <a href="#sair" style={styles.link}>Sair</a>
+                        <a href="/faq" style={styles.link}>FAQ's</a>
                     </li>
                 </ul>
             </div>
