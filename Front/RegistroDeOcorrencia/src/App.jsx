@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Cadastrar from './pages/cadastrar/Cadastrar';
 import Login from './pages/login/Login';
-import HomePage from './pages/HomePage'; // Importa a HomePage
+import HomePage from './pages/Home/HomePage'; // Importa a HomePage
 import Esqueceu from './pages/esqueceu/Esqueceu';
 import './index.css';
 
