@@ -34,6 +34,7 @@ function HomePage() {
       ) : (
         <p>Nenhum usuário autenticado.</p>
       )}
+      <a href="/login" target="_blank" rel="noopener noreferrer"> Pagina De Login </a>
     </div>
   );
 }

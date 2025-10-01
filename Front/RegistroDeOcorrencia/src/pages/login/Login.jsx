@@ -3,7 +3,7 @@ import styles from "./Login.module.css";
 import logo from "../../assets/logo.svg";
 
 const Login = () => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
@@ -14,7 +14,7 @@ const Login = () => {
             const response = await fetch("http://localhost:5000/api/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ email, password }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -36,14 +36,14 @@ const Login = () => {
             <form className={styles.form} id="loginForm" onSubmit={handleSubmit}>
                 {error && <div style={{ color: "red" }}>{error}</div>}
                 <div className={styles.inputGroup}>
-                    <label htmlFor="username" className={styles.label}>Usuário</label>
+                    <label htmlFor="email" className={styles.label}>Email</label>
                     <input
                         type="text"
-                        id="username"
-                        name="username"
+                        id="email"
+                        name="email"
                         className={styles.input}
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
+                        value={email}
+                        onChange={e => setemail(e.target.value)}
                     />
                 </div>
                 <div className={styles.inputGroup}>
@@ -58,9 +58,9 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit" className={styles.button}>Entrar</button>
-                <p>Esqueceu sua senha? <a href="#">Clique aqui</a> </p>
+                <p>Esqueceu sua senha? <a href="/esqueceu">Clique aqui</a> </p>
             </form>
-               <p>Não possui uma conta? <a href="/cadastrar">Clique aqui</a></p>
+               <p>Não possui uma conta? <a href="/cadastrar">Crie agora!</a></p>
         </div>
     );
 };

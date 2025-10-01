@@ -1,4 +1,4 @@
-/* Login.module.css */
+/* Esqueceu.module.css */
 
 .container {
     display: flex;
@@ -59,9 +59,18 @@
     outline: none;
     border-color: #0a0a0a;
 }
+span {
+    color: red;
+}
+
+.buttonBox{
+    display: flex ;
+    justify-content: space-around ; /* ou space-around, space-evenly */
+    gap: 16px; /* opcional, para espaçamento fixo entre botões */
+}
 
 .button {
-    width: 100%;
+    width: 50%;
     padding: 10px;
     background-color: #C3231F;
     color: #fff;
@@ -71,9 +80,19 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
-.button:hover {
-    background-color: #ee3c39;
+.buttonCancelar {
+    width: 50%;
+    padding: 10px;
+    background-color: #D0CEC9;
+    color: #0e0e0e;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    opacity: 80%;
 }
  p{
     margin-top: 16px;

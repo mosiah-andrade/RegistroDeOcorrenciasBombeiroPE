@@ -5,8 +5,10 @@ import logo from "../../assets/logo.svg";
 
 const Cadastrar = () => {
     const [form, setForm] = useState({
-        username: "",
-        usernameConfirm: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        numeroTelefone: "",
         password: "",
         passwordConfirm: "",
     });
@@ -21,15 +23,12 @@ const Cadastrar = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (form.username !== form.usernameConfirm) {
-            setError("Os nomes de usuário não coincidem.");
-            return;
-        }
+        
         if (form.password !== form.passwordConfirm) {
             setError("As senhas não coincidem.");
             return;
         }
-        if (!form.username || !form.password) {
+        if (!form.email || !form.password) {
             setError("Preencha todos os campos.");
             return;
         }
@@ -40,7 +39,10 @@ const Cadastrar = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: form.username,
+                firstName: form.firstName,
+                lastName: form.lastName,
+                email: form.email,
+                numeroTelefone: form.numeroTelefone,
                 password: form.password,
             }),
         })
@@ -64,31 +66,55 @@ const Cadastrar = () => {
             <h2>Insira suas informações</h2>
             <form className={styles.form} id="cadastrarForm" onSubmit={handleSubmit} method="POST" >
                 <div className={styles.inputGroup}>
-                    <label htmlFor="username" className={styles.label}>Nome de Usuário</label>
+                    <label htmlFor="firstName" className={styles.label}>Primeiro Nome <span>*</span></label>
                     <input
                         type="text"
-                        id="username"
-                        name="username"
+                        id="firstName"
+                        name="firstName"
                         className={styles.input}
-                        value={form.username}
+                        value={form.firstName}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className={styles.inputGroup}>
-                    <label htmlFor="usernameConfirm" className={styles.label}>Repita o Nome de Usuário</label>
+                    <label htmlFor="lastName" className={styles.label}>Sobrenome <span>*</span></label>
                     <input
                         type="text"
-                        id="usernameConfirm"
-                        name="usernameConfirm"
+                        id="lastName"
+                        name="lastName"
                         className={styles.input}
-                        value={form.usernameConfirm}
+                        value={form.lastName}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className={styles.inputGroup}>
-                    <label htmlFor="password" className={styles.label}>Senha</label>
+                    <label htmlFor="email" className={styles.label}>Email <span>*</span></label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className={styles.input}
+                        value={form.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className={styles.inputGroup}>
+                    <label htmlFor="numeroTelefone" className={styles.label}>Número de Telefone <span>*</span></label>
+                    <input
+                        type="text"
+                        id="numeroTelefone"
+                        name="numeroTelefone"
+                        className={styles.input}
+                        value={form.numeroTelefone}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className={styles.inputGroup}>
+                    <label htmlFor="password" className={styles.label}>Senha <span>*</span></label>
                     <input
                         type="password"
                         id="password"
@@ -100,7 +126,7 @@ const Cadastrar = () => {
                     />
                 </div>
                 <div className={styles.inputGroup}>
-                    <label htmlFor="passwordConfirm" className={styles.label}>Repita a Senha</label>
+                    <label htmlFor="passwordConfirm" className={styles.label}>Confirme a Senha <span>*</span></label>
                     <input
                         type="password"
                         id="passwordConfirm"
@@ -114,6 +140,7 @@ const Cadastrar = () => {
                 {error && <div className={styles.error}>{error}</div>}
                 <button type="submit" className={styles.button}>Cadastrar</button>
             </form>
+            <p>Deseja voltar ao login? <a href="/login">Clique aqui</a></p>
         </div>
     );
 };

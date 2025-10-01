@@ -8,6 +8,7 @@
     min-height: 100vh;
     background: #EEEBE3;
     width: 100vw;
+    color: #333;
 }
 
 .form {
@@ -52,12 +53,15 @@
     min-width: 320px;
     height: 40px;
     background-color: transparent;
+    color: black;
 }
 .input:focus {
     outline: none;
     border-color: #0a0a0a;
 }
-
+span {
+    color: red;
+}
 .button {
     width: 100%;
     padding: 10px;
