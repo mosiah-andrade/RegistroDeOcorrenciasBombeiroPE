@@ -4,6 +4,8 @@ main{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    max-width: 80vw;
+    margin: 0 auto;
 }
 
 #profile {
@@ -21,11 +23,31 @@ main{
     background-color: #FFFFFF; /* Fundo branco */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    width: 400px;
+    box-shadow: 0 8px 16px rgba(79, 2, 2, 0.1); /* Sombra suave */
+    width: 20vw;
     margin: 20px;
+    min-width: 250px;
 }
 .box{
+    background-color: #FFFFFF; /* Fundo branco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(79, 2, 2, 0.1); /* Sombra suave */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+    margin: 20px;
+    min-width: 250px;
+    font-size: 1.2rem;
+    svg{
+        width: 80px;
+        height: 80px;
+    }
+}
+#summaryBox {
     background-color: #FFFFFF; /* Fundo branco */
     padding: 20px;
     border-radius: 10px;
@@ -35,4 +57,38 @@ main{
     align-items: center;
     justify-content: center;
     margin: 20px;
+    width: 100%;
+    max-width: 600px; /* Largura máxima para telas maiores */
+}
+.ocorrenciasSummary {
+    background-color: #FFFFFF !important; /* Fundo branco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    width: 100%;
+    max-width: 600px; /* Largura máxima para telas maiores */
+}
+
+.tableContainer {
+    width: 90vw;
+    overflow-x: auto;
+    background-color: #FFFFFF; /* Fundo branco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.dropdown {
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f41515;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }

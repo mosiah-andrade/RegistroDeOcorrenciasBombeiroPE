@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react'; 
 import Sidebar from '../../components/Sidebar';
 import Styles from './Home.module.css';
+import OcorrenciasTable from '../../components/OcorrenciasTable';
+import FilterDropdown from '../../components/FilterDropdown'; // A importação correta
+import { HiPlus, HiOutlineUpload } from 'react-icons/hi';
+
 
 
 function parseJwt(token) {
@@ -26,26 +30,160 @@ function HomePage() {
   const token = localStorage.getItem('token');
   const user = parseJwt(token);
 
+  // Dados fictícios para a tabela
+  const mockOcorrencias = [
+    { id: 923, responsavel: { nome: 'Ana', cargo: 'Analista' }, data: 'Seg Nov 04 2024 10:25:56', status: 'Aprovado', regiao: 'Recife-PE', tipo: 'Incêndio', extra: 4 },
+    { id: 924, responsavel: { nome: 'Bruno', cargo: 'Coordenador' }, data: 'Dom Nov 03 2024 15:10:02', status: 'Em Análise', regiao: 'São Paulo-SP', tipo: 'Resgate', extra: 1 },
+    { id: 925, responsavel: { nome: 'Carlos', cargo: 'Analista' }, data: 'Sáb Nov 02 2024 08:45:11', status: 'Aprovado', regiao: 'Recife-PE', tipo: 'Incêndio', extra: 2 },
+    { id: 926, responsavel: { nome: 'Daniela', cargo: 'Especialista' }, data: 'Sex Nov 01 2024 18:22:56', status: 'Rejeitado', regiao: 'Belo Horizonte-MG', tipo: 'Químico', extra: 0 },
+    { id: 927, responsavel: { nome: 'Eduardo', cargo: 'Analista' }, data: 'Qui Out 31 2024 11:30:00', status: 'Em Análise', regiao: 'São Paulo-SP', tipo: 'Incêndio', extra: 3 },
+  ]
+
+
+
+  const statusOptions = ['Todos', 'Aprovado', 'Em Análise', 'Rejeitado'];
+  const tipoOptions = ['Todos', 'Incêndio', 'Resgate', 'Químico'];
+  const regiaoOptions = ['Todas', 'Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
+  const periodoOptions = ['Qualquer', 'Hoje', 'Última Semana', 'Último Mês'];
+
+  const [filters, setFilters] = useState({
+    status: 'Todos',
+    tipo: 'Todos',
+    regiao: 'Todas',
+    periodo: 'Qualquer',
+  });
+
+  const handleFilterChange = (filterName, value) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterName]: value,
+    }));
+  };
+
+  const filteredOcorrencias = useMemo(() => {
+    return mockOcorrencias.filter(ocorrencia => {
+      // Verifica cada filtro. Se for 'Todos', não filtra.
+      const statusMatch = filters.status === 'Todos' || ocorrencia.status === filters.status;
+      const tipoMatch = filters.tipo === 'Todos' || ocorrencia.tipo === filters.tipo;
+      const regiaoMatch = filters.regiao === 'Todas' || ocorrencia.regiao === filters.regiao;
+      
+      return statusMatch && tipoMatch && regiaoMatch;
+    });
+  }, [filters]); // A lista só é recalculada quando 'filters' muda
+
+  
+
+
   return (
     <div className="flex min-h-screen bg-gray-900 text-white">
       {/* 3. SIDEBAR: Componente Sidebar */}
       <Sidebar />
       
-       {/* 4. CONTEÚDO PRINCIPAL: Ocupa o espaço restante (`flex-1`) */}
-      <main className="flex-1 p-8 mt-4 max-w-md">
-        <div class="grid grid-cols-3 md:grid-cols-3 grid-rows-3 md:grid-rows-3 gap-2 md:gap-20 m-4">
-          <div class="col-start-1 row-start-1 row-span-2 md:col-start-1 md:row-start-1 md:col-span-1 md:row-span-2 bg-gray-300 rounded-md p-10 " id={Styles.profileBox} >
+      <main className=" p-8 mt-4">
+        <div className="grid grid-cols-3 md:grid-cols-3 grid-rows-2 md:grid-rows-2 gap-2 md:gap-20 m-4">
+          <div className="col-start-1 row-start-1 row-span-2 md:col-start-1 md:row-start-1 md:col-span-1 md:row-span-2 bg-gray-300 rounded-md p-10 " id={Styles.profileBox} >
             <img src="https://img.freepik.com/vetores-premium/icone-do-bombeiro_1134231-1046.jpg" alt="" id={Styles.profile} />
-            <h2 class="text-center font-bold text-2xl mt-4">Bem-vindo, {user ? user.nome : 'Visitante'}!</h2>
+            <h2 className="text-center font-bold text-2xl mt-4">Bem-vindo, {user ? user.nome : 'Visitante'}!</h2>
           </div>
-          <div class="col-start-2 row-start-1 md:col-start-2 md:row-start-1 md:col-span-1 md:row-span-1 bg-gray-300 rounded-md p-10 border-2 border-solid border-black p-4" className={Styles.box} >1</div>
-          <div class="col-start-2 row-start-2 md:col-start-2 md:row-start-2 md:col-span-1 md:row-span-1 bg-gray-300 rounded-md p-10 border-2 border-solid border-black p-4" className={Styles.box}>2</div>
-          <div class="col-start-3 row-start-2 md:col-start-3 md:row-start-2 md:col-span-1 md:row-span-1 bg-gray-300 rounded-md p-10 border-2 border-solid border-black p-4" className={Styles.box}>3</div>
-          <div class="col-start-3 row-start-1 md:col-start-3 md:row-start-1 md:col-span-1 md:row-span-1 bg-gray-300 rounded-md p-10 border-2 border-solid border-black p-4" className={Styles.box}>4</div>
-      
+
+          <div className={`${Styles.box}`}  > 
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="red" >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
+            </svg>
+            
+            <span style={{ color: 'black' }}> 
+              total de ocorrências em aberto: <span className="font-bold text-3xl">5</span>
+            </span>
+          </div>
+
+          <div className={` ${Styles.box}`} >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="green" >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <span style={{ color: 'black' }}>
+              total de ocorrências finalizadas: <span className="font-bold text-3xl">10</span>
+            </span>
+          </div>
+
+          <div className={` ${Styles.box}`} >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="black" >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z" />
+            </svg>
+            <span style={{ color: 'black' }}>
+              total de ocorrências em análise: <span className="font-bold text-3xl">5</span>
+            </span>
+          </div>
+
+          <div className={` ${Styles.box}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="blue">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z" />
+            </svg>
+
+            <span style={{ color: 'black' }}>
+              total de ocorrências registradas: <span className="font-bold text-3xl">20</span>
+            </span>
+          </div>
+
         </div>
-        {/* Usando classes Tailwind no link para estilizar como o da imagem */}
+        {/* Usando classNamees Tailwind no link para estilizar como o da imagem */}
         {/* <a href="/login" className="text-blue-500 hover:underline mt-4 inline-block"> Página De Login </a> */}
+
+        <div className={`${Styles.tableContainer} mt-8 `}>
+          <div className="">
+            
+            {/* Cabeçalho em uma linha */}
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-2xl font-bold text-gray-900">Ocorrências</h1>
+              <div className="flex flex-row space-x-4">
+                <button className="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
+                  <HiOutlineUpload className="w-5 h-5 mr-2" />
+                  Exportar tabela
+                </button>
+                <button className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700">
+                  <HiPlus className="w-5 h-5 mr-2" />
+                  Novo
+                </button>
+              </div>
+            </div>
+
+           {/* Filtros */}
+            <div className="grid grid-cols-4 gap-5 mb-6">
+              <FilterDropdown 
+                label="Status" 
+                options={statusOptions} 
+                value={filters.status}
+                onChange={(e) => handleFilterChange('status', e.target.value)}
+              />
+              <FilterDropdown 
+                label="Tipo" 
+                options={tipoOptions} 
+                value={filters.tipo}
+                onChange={(e) => handleFilterChange('tipo', e.target.value)}
+              />
+              <FilterDropdown 
+                label="Região" 
+                options={regiaoOptions} 
+                value={filters.regiao}
+                onChange={(e) => handleFilterChange('regiao', e.target.value)}
+              />
+              <FilterDropdown 
+                className={`${Styles.dropdown}`}
+                label="Período" 
+                options={periodoOptions} 
+                value={filters.periodo}
+                onChange={(e) => handleFilterChange('periodo', e.target.value)}
+              />
+          </div>
+            
+            {/* Tabela */}
+            <OcorrenciasTable data={filteredOcorrencias} />
+
+          </div>
+        </div>
+
+        <footer className="w-full p-4 bg-gray-800 text-center text-sm text-gray-400">
+          &copy; {new Date().getFullYear()} Sistema de Registro de Ocorrências. Todos os direitos reservados.
+        </footer>
       </main>
     </div>
   );

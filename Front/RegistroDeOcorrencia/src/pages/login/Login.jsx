@@ -29,38 +29,40 @@ const Login = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <img src={logo} alt="Logo" className={styles.logo} />
-            <h1>CBMPE</h1>
-            <h2>Insira suas informações de cadastro</h2>
-            <form className={styles.form} id="loginForm" onSubmit={handleSubmit}>
-                {error && <div style={{ color: "red" }}>{error}</div>}
-                <div className={styles.inputGroup}>
-                    <label htmlFor="email" className={styles.label}>Email</label>
-                    <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        className={styles.input}
-                        value={email}
-                        onChange={e => setemail(e.target.value)}
-                    />
-                </div>
-                <div className={styles.inputGroup}>
-                    <label htmlFor="password" className={styles.label}>Senha</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        className={styles.input}
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className={styles.button}>Entrar</button>
-                <p>Esqueceu sua senha? <a href="/esqueceu">Clique aqui</a> </p>
-            </form>
-               <p>Não possui uma conta? <a href="/cadastrar">Crie agora!</a></p>
+        <div className="bg-black-900 " style={{ backgroundImage: `url(https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` , backgroundSize: 'cover', backgroundPosition: 'center'}}>
+            <div className={styles.container}>
+                <img src={logo} alt="Logo" className={styles.logo} />
+                <h1>CBMPE</h1>
+                <h2>Insira suas informações de cadastro</h2>
+                <form className={styles.form} id="loginForm" onSubmit={handleSubmit}>
+                    {error && <div style={{ color: "red" }}>{error}</div>}
+                    <div className={styles.inputGroup}>
+                        <label htmlFor="email" className={styles.label}>Email</label>
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            className={styles.input}
+                            value={email}
+                            onChange={e => setemail(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles.inputGroup}>
+                        <label htmlFor="password" className={styles.label}>Senha</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            className={styles.input}
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <button type="submit" className={styles.button}>Entrar</button>
+                    <p>Esqueceu sua senha? <a href="/esqueceu">Clique aqui</a> </p>
+                </form>
+                <p>Não possui uma conta? <a href="/cadastrar">Crie agora!</a></p>
+            </div>
         </div>
     );
 };

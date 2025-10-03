@@ -9,6 +9,7 @@
     background: #EEEBE3;
     width: 100vw;
     color: #333;
+    max-width: 700px;
 }
 
 .form {
