@@ -41,11 +41,12 @@ function HomePage() {
   const regiaoOptions = ['Todas', 'Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
   const periodoOptions = ['Qualquer', 'Hoje', 'Última Semana', 'Último Mês'];
 
+  const apiUrl  = `${import.meta.env.VITE_API_BASE_URL}/api/ocorrencias`;
 
   useEffect(() => {
     const fetchOcorrencias = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/ocorrencias'); 
+        const response = await fetch(apiUrl); 
         if (!response.ok) {
           throw new Error('Erro ao buscar ocorrências');
         }
