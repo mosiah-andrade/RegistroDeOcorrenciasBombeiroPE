@@ -93,7 +93,7 @@ const NovaOcorrencia = () => {
 
                 <div className={styles.inputGroup}>
                     <label htmlFor="regiao">Região</label>
-                    <select
+                    {/* <input
                         id="regiao"
                         name="regiao"
                         value={formData.regiao}
@@ -102,7 +102,13 @@ const NovaOcorrencia = () => {
                         <option value="Recife-PE">Recife-PE</option>
                         <option value="São Paulo-SP">São Paulo-SP</option>
                         <option value="Belo Horizonte-MG">Belo Horizonte-MG</option>
-                    </select>
+                    </input> */}
+
+                    <input type="text" 
+                        id="regiao"
+                        name="regiao"
+                        value={formData.regiao}
+                        onChange={handleChange} />
                 </div>
                 
                 <div className={styles.inputGroup}>
