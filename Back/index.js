@@ -10,7 +10,6 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
-    'https://registro-de-ocorrencias-bombeiro-pe.vercel.app',
 ];
 app.use((req, res, next) => {
     const origin = req.headers.origin;
