@@ -76,9 +76,9 @@ exports.updateOcorrencia = async (req, res) => {
     return res.status(400).json({ message: `Cargo inválido. Opções válidas: ${cargosValidos.join(', ')}` });
   }
 
-  if (regiao && !regioesValidas.includes(regiao)) {
-    return res.status(400).json({ message: `Região inválida. Opções válidas: ${regioesValidas.join(', ')}` });
-  }
+  // if (regiao && !regioesValidas.includes(regiao)) {
+  //   return res.status(400).json({ message: `Região inválida. Opções válidas: ${regioesValidas.join(', ')}` });
+  // }
 
   if (tipo && !tiposValidos.includes(tipo)) {
     return res.status(400).json({ message: `Tipo inválido. Opções válidas: ${tiposValidos.join(', ')}` });
