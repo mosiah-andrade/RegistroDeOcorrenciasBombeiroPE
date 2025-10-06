@@ -2,6 +2,10 @@ import React from 'react';
 
 // Um objeto para mapear cada status aos seus estilos correspondentes
 const statusStyles = {
+  Aberto:{
+    badge: 'bg-orange-100 text-red-800',
+    dot: 'bg-orange-500',
+  },
   Aprovado: {
     badge: "bg-green-100 text-green-800",
     dot: "bg-green-500",
