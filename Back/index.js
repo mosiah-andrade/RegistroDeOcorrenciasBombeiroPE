@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const authRoutes = require('./routes/authRoutes');
+const ocorrenciasRoutes = require('./routes/ocorrenciaRoutes');
 
 const app = express();
 
@@ -39,5 +40,5 @@ app.use('/api', authRoutes);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 
-const ocorrenciasRoutes = require('./routes/ocorrenciasRoutes');
+const ocorrenciasRoutes = require('./routes/ocorrenciaRoutes');
 app.use('/api/ocorrencias', ocorrenciasRoutes);

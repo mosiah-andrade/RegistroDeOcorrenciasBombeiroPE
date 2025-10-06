@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react'; 
+import React, { useState, useEffect, useMemo } from 'react'; 
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import Styles from './Home.module.css';
 import OcorrenciasTable from '../../components/OcorrenciasTable';
@@ -27,17 +28,11 @@ function parseJwt(token) {
 }
 
 function HomePage() {
+   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const user = parseJwt(token);
 
-  // Dados fictícios para a tabela
-  const mockOcorrencias = [
-    { id: 923, responsavel: { nome: 'Ana', cargo: 'Analista' }, data: 'Seg Nov 04 2024 10:25:56', status: 'Aprovado', regiao: 'Recife-PE', tipo: 'Incêndio', extra: 4 },
-    { id: 924, responsavel: { nome: 'Bruno', cargo: 'Coordenador' }, data: 'Dom Nov 03 2024 15:10:02', status: 'Em Análise', regiao: 'São Paulo-SP', tipo: 'Resgate', extra: 1 },
-    { id: 925, responsavel: { nome: 'Carlos', cargo: 'Analista' }, data: 'Sáb Nov 02 2024 08:45:11', status: 'Aprovado', regiao: 'Recife-PE', tipo: 'Incêndio', extra: 2 },
-    { id: 926, responsavel: { nome: 'Daniela', cargo: 'Especialista' }, data: 'Sex Nov 01 2024 18:22:56', status: 'Rejeitado', regiao: 'Belo Horizonte-MG', tipo: 'Químico', extra: 0 },
-    { id: 927, responsavel: { nome: 'Eduardo', cargo: 'Analista' }, data: 'Qui Out 31 2024 11:30:00', status: 'Em Análise', regiao: 'São Paulo-SP', tipo: 'Incêndio', extra: 3 },
-  ]
+  const [ocorrencias, setOcorrencias] = useState([]);
 
 
 
@@ -45,6 +40,27 @@ function HomePage() {
   const tipoOptions = ['Todos', 'Incêndio', 'Resgate', 'Químico'];
   const regiaoOptions = ['Todas', 'Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
   const periodoOptions = ['Qualquer', 'Hoje', 'Última Semana', 'Último Mês'];
+
+
+  useEffect(() => {
+    const fetchOcorrencias = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/ocorrencias'); 
+        if (!response.ok) {
+          throw new Error('Erro ao buscar ocorrências');
+        }
+        const data = await response.json();
+        setOcorrencias(data); 
+      } catch (error) {
+        console.error("Falha ao buscar ocorrências:", error);
+      }
+    };
+
+    fetchOcorrencias();
+  }, []);
+
+
+
 
   const [filters, setFilters] = useState({
     status: 'Todos',
@@ -61,18 +77,19 @@ function HomePage() {
   };
 
   const filteredOcorrencias = useMemo(() => {
-    return mockOcorrencias.filter(ocorrencia => {
-      // Verifica cada filtro. Se for 'Todos', não filtra.
+    return ocorrencias.filter(ocorrencia => {
       const statusMatch = filters.status === 'Todos' || ocorrencia.status === filters.status;
       const tipoMatch = filters.tipo === 'Todos' || ocorrencia.tipo === filters.tipo;
       const regiaoMatch = filters.regiao === 'Todas' || ocorrencia.regiao === filters.regiao;
       
       return statusMatch && tipoMatch && regiaoMatch;
     });
-  }, [filters]); // A lista só é recalculada quando 'filters' muda
+  }, [filters, ocorrencias]); 
 
   
-
+  const handleNovaOcorrencia = () => {
+      navigate('/ocorrencias/nova');
+    };
 
   return (
     <div className="flex min-h-screen bg-gray-900 text-white">
@@ -139,7 +156,9 @@ function HomePage() {
                   <HiOutlineUpload className="w-5 h-5 mr-2" />
                   Exportar tabela
                 </button>
-                <button className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700">
+                <button 
+                  onClick={handleNovaOcorrencia}
+                  className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700">
                   <HiPlus className="w-5 h-5 mr-2" />
                   Novo
                 </button>
