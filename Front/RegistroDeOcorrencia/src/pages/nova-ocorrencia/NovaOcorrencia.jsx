@@ -7,7 +7,7 @@ const NovaOcorrencia = () => {
     const [formData, setFormData] = useState({
         nomeResponsavel: '',
         cargoResponsavel: 'Analista',
-        regiao: 'Recife-PE',
+        regiao: '',
         tipo: 'Incêndio',
     });
     const [error, setError] = useState('');
