@@ -7,7 +7,10 @@ main{
     max-width: 80vw;
     margin: 0 auto;
 }
+body{
 
+    background: #EEEBE3;
+}
 #profile {
     width: 250px;
     height: 250px;

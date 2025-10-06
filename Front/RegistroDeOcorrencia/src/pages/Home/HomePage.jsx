@@ -93,7 +93,7 @@ function HomePage() {
     };
 
   return (
-    <div className="flex min-h-screen bg-gray-900 text-white">
+    <div className={`flex min-h-screen `}>
       {/* 3. SIDEBAR: Componente Sidebar */}
       <Sidebar />
       
@@ -201,7 +201,7 @@ function HomePage() {
           </div>
         </div>
 
-        <footer className="w-full p-4 bg-gray-800 text-center text-sm text-gray-400">
+        <footer className="w-full p-4 -800 text-center text-sm ">
           &copy; {new Date().getFullYear()} Sistema de Registro de Ocorrências. Todos os direitos reservados.
         </footer>
       </main>
