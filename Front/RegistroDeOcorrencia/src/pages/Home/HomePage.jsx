@@ -41,7 +41,7 @@ function HomePage() {
   const regiaoOptions = ['Todas', 'Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
   const periodoOptions = ['Qualquer', 'Hoje', 'Última Semana', 'Último Mês'];
 
-  const apiUrl  = `${import.meta.env.VITE_API_BASE_URL}/api/ocorrencias`;
+  const apiUrl  = `${import.meta.env.VITE_API_BASE_URL}api/ocorrencias`;
 
   useEffect(() => {
     const fetchOcorrencias = async () => {
