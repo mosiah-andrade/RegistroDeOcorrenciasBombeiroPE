@@ -32,7 +32,7 @@ const NovaOcorrencia = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/ocorrencias', {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/ocorrencias`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
