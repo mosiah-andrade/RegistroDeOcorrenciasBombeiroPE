@@ -23,7 +23,7 @@ const OcorrenciasTable = ({ data }) => {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {data.map((ocorrencia) => (
-            <tr key={ocorrencia.id} className="hover:bg-gray-50">
+            <tr key={ocorrencia._id} className="hover:bg-gray-50">
               <td className="p-4">
                 <input type="checkbox" className="rounded" />
               </td>
@@ -39,7 +39,7 @@ const OcorrenciasTable = ({ data }) => {
                 </div>
               </td>
               <td className="p-4 whitespace-nowrap">
-                <div className="text-sm font-bold text-gray-900">#{ocorrencia.id}</div>
+                <div className="text-sm font-bold text-gray-900">#{ocorrencia._id}</div>
                 <div className="text-sm text-gray-500">{ocorrencia.data}</div>
               </td>
               <td className="p-4 whitespace-nowrap">
