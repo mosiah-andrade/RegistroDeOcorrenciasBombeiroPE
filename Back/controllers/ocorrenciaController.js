@@ -36,16 +36,16 @@ exports.createOcorrencia = async (req, res) => {
   }
 
   const cargosValidos = ['Analista', 'Chefe'];
-  const regioesValidas = ['Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
+  // const regioesValidas = ['Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
   const tiposValidos = ['Incêndio', 'Resgate', 'Químico'];
   const cargoResponsavel = responsavel.cargo;
 
   if (!cargosValidos.includes(cargoResponsavel)) {
     return res.status(400).json({ message: `Cargo inválido. Opções válidas: ${cargosValidos.join(', ')}` });
   }
-  if (!regioesValidas.includes(regiao)) {
-    return res.status(400).json({ message: `Região inválida. Opções válidas: ${regioesValidas.join(', ')}` });
-  }
+  // if (!regioesValidas.includes(regiao)) {
+  //   return res.status(400).json({ message: `Região inválida. Opções válidas: ${regioesValidas.join(', ')}` });
+  // }
   if (!tiposValidos.includes(tipo)) {
     return res.status(400).json({ message: `Tipo inválido. Opções válidas: ${tiposValidos.join(', ')}` });
   }
@@ -65,7 +65,7 @@ exports.updateOcorrencia = async (req, res) => {
 
   const statusValidos = ['Aberto', 'Aprovado', 'Em Análise', 'Rejeitado'];
   const cargosValidos = ['Analista', 'Chefe'];
-  const regioesValidas = ['Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
+  // const regioesValidas = ['Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
   const tiposValidos = ['Incêndio', 'Resgate', 'Químico'];
 
   if (status && !statusValidos.includes(status)) {
