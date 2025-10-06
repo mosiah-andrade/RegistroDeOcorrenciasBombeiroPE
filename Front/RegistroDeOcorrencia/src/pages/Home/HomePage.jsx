@@ -38,7 +38,15 @@ function HomePage() {
 
   const statusOptions = ['Todos', 'Aprovado', 'Em Análise', 'Rejeitado'];
   const tipoOptions = ['Todos', 'Incêndio', 'Resgate', 'Químico'];
-  const regiaoOptions = ['Todas', 'Recife-PE', 'São Paulo-SP', 'Belo Horizonte-MG'];
+  const regiaoOptions = useMemo(() => {
+      // 1. Extrai todas as regiões únicas dos dados
+      const regioesUnicas = [
+          ...new Set(ocorrencias.map(ocorrencia => ocorrencia.regiao))
+      ];
+
+      // 2. Adiciona a opção padrão 'Todas' no início
+      return ['Todas', ...regioesUnicas.sort()];
+  }, [ocorrencias]); // Recalcula apenas quando 'ocorrencias' mudar
   const periodoOptions = ['Qualquer', 'Hoje', 'Última Semana', 'Último Mês'];
 
   const apiUrl  = `${import.meta.env.VITE_API_BASE_URL}/api/ocorrencias`;
