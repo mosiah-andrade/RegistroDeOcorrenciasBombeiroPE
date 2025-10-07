@@ -3,7 +3,7 @@ import styles from "./Login.module.css";
 import logo from "../../assets/logo.svg";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
+    const [emailOrCPF, setEmailOrCPF] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
@@ -11,10 +11,10 @@ const Login = () => {
         e.preventDefault();
         setError("");
         try {
-            const response = await fetch("http://localhost:5000/api/login", {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ identifier: emailOrCPF, password }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -29,7 +29,7 @@ const Login = () => {
     };
 
     return (
-        <div className="bg-black-900 " style={{ backgroundImage: `url(https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` , backgroundSize: 'cover', backgroundPosition: 'center'}}>
+        <div className="bg-black-900 " style={{ backgroundImage: `url(https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className={styles.container}>
                 <img src={logo} alt="Logo" className={styles.logo} />
                 <h1>CBMPE</h1>
@@ -37,14 +37,14 @@ const Login = () => {
                 <form className={styles.form} id="loginForm" onSubmit={handleSubmit}>
                     {error && <div style={{ color: "red" }}>{error}</div>}
                     <div className={styles.inputGroup}>
-                        <label htmlFor="email" className={styles.label}>Email</label>
+                        <label htmlFor="emailOrCPF" className={styles.label}>Email ou CPF</label>
                         <input
                             type="text"
-                            id="email"
-                            name="email"
+                            id="emailOrCPF"
+                            name="email ou CPF"
                             className={styles.input}
-                            value={email}
-                            onChange={e => setemail(e.target.value)}
+                            value={emailOrCPF}
+                            onChange={e => setEmailOrCPF(e.target.value)}
                         />
                     </div>
                     <div className={styles.inputGroup}>

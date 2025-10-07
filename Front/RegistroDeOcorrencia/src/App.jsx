@@ -11,7 +11,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage />} /> {/* HomePage na rota principal */}
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
         <Route path="/esqueceu" element={<Esqueceu />} />

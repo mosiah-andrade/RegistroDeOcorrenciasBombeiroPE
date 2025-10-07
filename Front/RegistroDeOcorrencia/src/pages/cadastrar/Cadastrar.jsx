@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./Cadastrar.module.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
@@ -7,6 +7,7 @@ const Cadastrar = () => {
     const [form, setForm] = useState({
         firstName: "",
         lastName: "",
+        cpf: "",
         email: "",
         numeroTelefone: "",
         password: "",
@@ -23,7 +24,7 @@ const Cadastrar = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        
+
         if (form.password !== form.passwordConfirm) {
             setError("As senhas não coincidem.");
             return;
@@ -33,7 +34,7 @@ const Cadastrar = () => {
             return;
         }
 
-        fetch("http://localhost:5000/api/register", {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -41,8 +42,9 @@ const Cadastrar = () => {
             body: JSON.stringify({
                 firstName: form.firstName,
                 lastName: form.lastName,
+                CPF: form.cpf,
                 email: form.email,
-                numeroTelefone: form.numeroTelefone,
+                phone: form.numeroTelefone, // <-- Corrigido para 'phone'
                 password: form.password,
             }),
         })
@@ -61,7 +63,7 @@ const Cadastrar = () => {
     };
 
     return (
-        <div className="bg-black-900 " style={{ backgroundImage: `url(https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` , backgroundSize: 'cover', backgroundPosition: 'center', }}>
+        <div className="bg-black-900 " style={{ backgroundImage: `url(https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundSize: 'cover', backgroundPosition: 'center', }}>
             <div className={styles.container}>
                 <img src={logo} alt="Logo" className={styles.logo} />
                 <h2>Insira suas informações</h2>
@@ -86,6 +88,18 @@ const Cadastrar = () => {
                             name="lastName"
                             className={styles.input}
                             value={form.lastName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className={styles.inputGroup}>
+                        <label htmlFor="cpf" className={styles.label}>CPF <span>*</span></label>
+                        <input
+                            type="text"
+                            id="cpf"
+                            name="cpf"
+                            className={styles.input}
+                            value={form.cpf}
                             onChange={handleChange}
                             required
                         />
