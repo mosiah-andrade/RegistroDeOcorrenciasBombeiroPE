@@ -1,76 +1,79 @@
-import React from 'react';
-import StatusBadge from './StatusBadge';
-import { HiOutlinePencil, HiOutlineTrash, HiOutlineDotsVertical } from 'react-icons/hi';
-import { FaRegUserCircle } from "react-icons/fa";
+// src/components/OcorrenciasTable.jsx
 
+import React from 'react';
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+
+// Função para obter a classe de estilo do status
+const getStatusClasses = (status) => {
+    switch (status) {
+        case 'Aprovado':
+            return 'bg-green-100 text-green-700';
+        case 'Pendente':
+            return 'bg-yellow-100 text-yellow-700';
+        case 'Recusado/Atrasado':
+            return 'bg-red-100 text-red-700';
+        default:
+            return 'bg-gray-100 text-gray-700';
+    }
+};
 
 const OcorrenciasTable = ({ data }) => {
-  return (
-    <div className="overflow-x-auto bg-white rounded-lg shadow" style={{ marginTop: '20px' }}>
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <input type="checkbox" className="rounded" />
-            </th>
-            <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Responsável</th>
-            <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ocorrência</th>
-            <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Região</th>
-            <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-            <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {data.map((ocorrencia) => (
-            <tr key={ocorrencia._id} className="hover:bg-gray-50">
-              <td className="p-4">
-                <input type="checkbox" className="rounded" />
-              </td>
-              <td className="p-4 whitespace-nowrap">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 h-20 w-20" style={{width:'auto', height:'auto'}}>
-                     <FaRegUserCircle className="h-20 w-20 rounded-full text-gray-400" style={{width:'30px', height:'30px', marginRight: '20px'}}/>
-                  </div>
-                  <div className="ml-4">
-                    <div className="text-sm font-medium text-gray-900">{ocorrencia.responsavel.nome}</div>
-                    <div className="text-sm text-gray-500">{ocorrencia.responsavel.cargo}</div>
-                  </div>
-                </div>
-              </td>
-              <td className="p-4 whitespace-nowrap">
-                <div className="text-sm font-bold text-gray-900">#{ocorrencia._id}</div>
-                <div className="text-sm text-gray-500">{ocorrencia.data}</div>
-              </td>
-              <td className="p-4 whitespace-nowrap">
-                <StatusBadge status={ocorrencia.status} />
-              </td>
-              <td className="p-4 whitespace-nowrap text-sm text-gray-500">{ocorrencia.regiao}</td>
-              <td className="p-4 whitespace-nowrap text-sm text-gray-500">
-                 <span className="px-2 py-1 bg-gray-200 rounded-md text-gray-700 text-xs">{ocorrencia.tipo}</span>
-                 {ocorrencia.extra > 0 && 
-                    <span className="ml-2 px-2 py-1 bg-gray-200 rounded-md text-gray-700 text-xs">+{ocorrencia.extra}</span>
-                 }
-              </td>
-              <td className="p-4 whitespace-nowrap text-sm font-medium">
-                <div className="flex items-center space-x-4">
-                  <button className="text-gray-400 hover:text-gray-600">
-                    <HiOutlineTrash size={20} />
-                  </button>
-                  <button className="text-gray-400 hover:text-gray-600">
-                    <HiOutlinePencil size={20} />
-                  </button>
-                  <button className="text-gray-400 hover:text-gray-600">
-                    <HiOutlineDotsVertical size={20} />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    if (!data || data.length === 0) {
+        return <p className="text-center text-gray-500 py-8">Nenhuma ocorrência encontrada.</p>;
+    }
+
+    return (
+        <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                    <tr>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ocorrência</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lotação</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                        <th scope="col" className="relative px-6 py-3"><span className="sr-only">Ações</span></th>
+                    </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                    {data.map((item, index) => (
+                        <tr key={index} className="hover:bg-gray-50 transition-colors duration-150">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="flex items-center">
+                                    <div className="flex-shrink-0 h-10 w-10">
+                                        {/* Avatar genérico */}
+                                        <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold">
+                                            {item.nome.charAt(0)}
+                                        </div>
+                                    </div>
+                                    <div className="ml-4">
+                                        <div className="text-sm font-medium text-gray-900">{item.nome}</div>
+                                        <div className="text-sm text-gray-500">{item.cargo}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">{item.id}</div>
+                                <div className="text-sm text-gray-500">{item.timestamp}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusClasses(item.status)}`}>
+                                    {item.status}
+                                </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.lotacao}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.tipo}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button className="text-gray-400 hover:text-orange-600 p-2 rounded-full">
+                                    {item.extra} <HiOutlineDotsHorizontal className="inline ml-2"/>
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 export default OcorrenciasTable;

@@ -1,127 +1,97 @@
 import React, { useState } from 'react';
 
-// Estilos definidos como objetos JavaScript
-const styles = {
-    sidebar: (isOpen) => ({
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '250px',
-      height: '100%',
-      backgroundColor: '#EEEBE3', // Cor escura
-      color: '#1a1a1a',
-      padding: '20px',
-      boxShadow: '2px 0 5px rgba(0, 0, 0, 0.5)',
-      transform: isOpen ? 'translateX(0)' : 'translateX(-100%)', // Transição chave
-      transition: 'transform 0.3s ease-in-out',
-      zIndex: 1000,
-    }),
-    sidebarHeader: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: '25px',
-      borderBottom: '1px solid #34495e',
-      paddingBottom: '10px',
-    },
-    sidebarTitle: {
-        margin: 0,
-        fontSize: '20px',
-    },
-    closeBtn: {
-      background: 'none',
-      border: 'none',
-      color: '#C62430',
-      fontSize: '30px',
-      cursor: 'pointer',
-      padding: 0,
-      lineHeight: 1,
-    },
-    sidebarLinks: {
-      listStyle: 'none',
-      padding: 0,
-    },
-    linkItem: {
-      marginBottom: '15px',
-    },
-    link: {
-      color: '#1a1a1a',
-      textDecoration: 'none',
-      fontSize: '16px',
-      display: 'block',
-      padding: '10px 0',
-    },
-    toggleBtn: {
-      position: 'fixed',
-      top: '40px',
-      backgroundColor: 'transparent', 
-      left: '40px',
-      padding: '10px 15px',// Cor de destaque
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      zIndex: 1001,
-    },
-    overlay: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.6)',
-      zIndex: 999,
-    }
-};
+// Importe apenas UMA versão de cada ícone
+import logo from '../assets/nino-logo.png';
+import homeIcon from '../assets/home-icon.png';
+import checklistIcon from '../assets/file-icon.png'; // Usando os nomes da sua imagem
+import shieldIcon from '../assets/certificate-icon.png'; // Supondo que você tenha este
+import settingsIcon from '../assets/settings-icon.png';
+import profileIcon from '../assets/profile-icon.png';
+
+const NavItem = ({ icon, text, active, onClick }) => (
+  <li className="relative group">
+    <a
+      href="#"
+      onClick={onClick}
+      className={`
+        flex items-center justify-center h-16 w-16 mx-auto rounded-lg
+        transition-all duration-300
+        ${
+          active
+            ? 'bg-gradient-to-l from-orange-300 to-transparent' // Fundo ativo
+            : '' // Fundo padrão
+        }
+      `}
+    >
+      {/* A mágica acontece aqui no className da imagem */}
+      <img
+        src={icon}
+        alt={text}
+        className={`
+          w-7 h-7 object-contain transition-all duration-300
+          ${
+            active
+              ? 'filter drop-shadow-[0_1px_3px_rgba(249,115,22,0.7)]' // EFEITO DE BRILHO LARANJA
+              : '' // Sem efeito
+          }
+        `}
+      />
+    </a>
+    <div className={`
+      absolute left-full ml-4 px-3 py-2 text-sm font-medium text-white bg-gray-800 
+      rounded-md shadow-lg whitespace-nowrap opacity-0 pointer-events-none
+      transform transition-all duration-200 scale-95 group-hover:opacity-100 group-hover:scale-100
+    `}>
+      {text}
+    </div>
+  </li>
+);
 
 const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState('Início');
 
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
-    const red = '#C62430';
-    return (
-        <>
-            {/* ------------------------------------------------------------------ */}
-            {/* O PONTO CHAVE: Renderiza o botão SOMENTE se a sidebar NÃO estiver aberta. */}
-            {/* ------------------------------------------------------------------ */}
-            {!isOpen && (
-                <button style={styles.toggleBtn} onClick={toggleSidebar}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
-                </button>
-            )}
+  const navItems = [
+    { name: 'Início', icon: homeIcon },
+    { name: 'Ocorrências', icon: checklistIcon },
+    { name: 'Segurança', icon: shieldIcon },
+  ];
 
-            {/* A própria sidebar */}
-            <div style={styles.sidebar(isOpen)}>
-                <div style={styles.sidebarHeader}>
-                    <h3 style={styles.sidebarTitle}>Configuração</h3>
+  return (
+    <aside className="w-20 bg-white border-r border-gray-200 flex flex-col items-center py-5 shadow-sm">
+      <div className="mb-8">
+        <img src={logo} alt="NINO Logo" className="w-12 h-12 object-contain" />
+      </div>
 
-                    {/* Botão de fechar (X) dentro da sidebar. Ele só fica visível quando a sidebar está aberta. */}
-                    <button style={styles.closeBtn} onClick={toggleSidebar}>
-                        &times;
-                    </button>
-                </div>
+      <nav className="flex-grow">
+        <ul className="space-y-3">
+          {navItems.map((item) => (
+            <NavItem
+              key={item.name}
+              icon={item.icon}
+              text={item.name}
+              active={activeItem === item.name}
+              onClick={() => setActiveItem(item.name)}
+            />
+          ))}
+        </ul>
+      </nav>
 
-                <ul style={styles.sidebarLinks}>
-                    <li style={styles.linkItem}>
-                        <a href="/editarPerfil" style={styles.link}>Editar Perfil</a>
-                    </li>
-                    <li style={styles.linkItem}>
-                        <a href="/termos" style={styles.link}>Termos de uso</a>
-                    </li>
-                    <li style={styles.linkItem}>
-                        <a href="/preferencias " style={styles.link}>Preferências </a>
-                    </li>
-                    <li style={styles.linkItem}>
-                        <a href="/faq" style={styles.link}>FAQ's</a>
-                    </li>
-                </ul>
-            </div>
-
-            {/* Overlay: aparece quando a sidebar está aberta */}
-            {isOpen && <div style={styles.overlay} onClick={toggleSidebar}></div>}
-        </>
-    );
+      <div className="mt-auto space-y-3">
+        <NavItem
+          icon={settingsIcon}
+          text="Configurações"
+          active={activeItem === 'Configurações'}
+          onClick={() => setActiveItem('Configurações')}
+        />
+        <NavItem
+          icon={profileIcon}
+          text="Meu Perfil"
+          active={activeItem === 'Perfil'}
+          onClick={() => setActiveItem('Perfil')}
+        />
+      </div>
+    </aside>
+  );
 };
 
 export default Sidebar;

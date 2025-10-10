@@ -1,97 +1,10 @@
-main{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    max-width: 80vw;
-    margin: 0 auto;
-}
-body{
+/* Home.module.css - Limpo */
 
-    background: #EEEBE3;
-}
-#profile {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #C62430; /* Borda vermelha */
-}
-#profileBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFFFFF; /* Fundo branco */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(79, 2, 2, 0.1); /* Sombra suave */
-    width: 20vw;
-    margin: 20px;
-    min-width: 250px;
-}
-.box{
-    background-color: #FFFFFF; /* Fundo branco */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(79, 2, 2, 0.1); /* Sombra suave */
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    width: 20vw;
-    margin: 20px;
-    min-width: 250px;
-    font-size: 1.2rem;
-    svg{
-        width: 80px;
-        height: 80px;
-    }
-}
-#summaryBox {
-    background-color: #FFFFFF; /* Fundo branco */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px;
-    width: 100%;
-    max-width: 600px; /* Largura máxima para telas maiores */
-}
-.ocorrenciasSummary {
-    background-color: #FFFFFF !important; /* Fundo branco */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px;
-    width: 100%;
-    max-width: 600px; /* Largura máxima para telas maiores */
-}
+/* A estilização principal agora é feita via Tailwind CSS no componente HomePage.js */
+/* Você pode remover os seletores antigos como #profile, .box, etc. */
 
-.tableContainer {
-    width: 90vw;
-    overflow-x: auto;
-    background-color: #FFFFFF; /* Fundo branco */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-.dropdown {
-    margin-right: 10px;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f41515;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+/* Se precisar de estilos globais, considere um arquivo CSS principal como index.css */
+body {
+    background-color: #F7F7F7; /* Define um fundo base para todo o app */
+    font-family: 'Inter', sans-serif; /* Exemplo de uma fonte moderna */
 }

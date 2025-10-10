@@ -1,23 +1,35 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Cadastrar from './pages/cadastrar/Cadastrar';
-import Login from './pages/login/Login';
-import HomePage from './pages/Home/HomePage'; // Importa a HomePage
-import Esqueceu from './pages/esqueceu/Esqueceu';
+
+// Componente de Layout
+import MainLayout from './components/MainLayout';
+
+// Páginas
+import HomePage from './pages/Home/HomePage';
 import NovaOcorrencia from './pages/nova-ocorrencia/NovaOcorrencia';
+import Login from './pages/login/Login';
+import Cadastrar from './pages/cadastrar/Cadastrar';
+import Esqueceu from './pages/esqueceu/Esqueceu';
+
 import './index.css';
 
 function App() {
   return (
-    <div>
-      <Routes>
+    <Routes>
+      {/* Rotas PÚBLICAS (sem Sidebar e Header) */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/cadastrar" element={<Cadastrar />} />
+      <Route path="/esqueceu" element={<Esqueceu />} />
+
+      {/* Rotas PRIVADAS (com Sidebar e Header) */}
+      {/* A rota pai "element={<MainLayout />}" aplica o layout para todas as rotas filhas */}
+      <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastrar" element={<Cadastrar />} />
-        <Route path="/esqueceu" element={<Esqueceu />} />
         <Route path="/ocorrencias/nova" element={<NovaOcorrencia />} />
-      </Routes>
-    </div>
+        {/* Adicione aqui outras rotas que devem ter o layout principal */}
+        {/* Exemplo: <Route path="/perfil" element={<ProfilePage />} /> */}
+      </Route>
+    </Routes>
   );
 }
 
