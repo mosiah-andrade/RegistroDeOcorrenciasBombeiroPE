@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./Cadastrar.module.css";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 
 const Cadastrar = () => {
     const [form, setForm] = useState({

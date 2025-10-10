@@ -1,0 +1,186 @@
+/* Login.module.css */
+
+.container {
+   display: flex;
+    /* justify-content e align-items centralizam o formulário dentro do container */
+    justify-content: center; 
+    align-items: center;
+    background: linear-gradient(180deg, #36312E 50.52%, #D4D4D4 110.06%);
+    color: #333;
+    max-width: 700px; /* Largura máxima do seu formulário */
+    width: 100%; /* Garante que ele ocupe até o máximo definido */
+
+    /* Importante: Impede que o container do formulário encolha */
+    flex-shrink: 0;
+}
+
+.bg{
+    flex-grow: 1; /* Faz esta div ocupar todo o espaço restante */
+
+    background-image: url(/imgs/catOnTree.png);
+    background-size: cover; /* Cobre todo o espaço da div */
+    background-position: center; /* Centraliza a imagem */
+}
+.page{
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction:row;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 32px;
+    min-width: 320px;
+    max-width: 100vw;
+}
+
+.title {
+    margin-bottom: 24px;
+    text-align: center;
+    color: #333;
+}
+.subtitle{
+    text-align: left;
+    align-self: normal;
+    color: #FFF;
+    font-size: 19.114px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top:21.28px;
+    margin-bottom: 21.19px;
+}
+
+.inputGroup {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 4.85px;
+}
+
+.label {
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+    width: 100%;
+    min-width: 320px;
+    color: #9C9FA3
+}
+.label:has(+ .input:focus) {
+    outline: none;
+    border-color: #0a0a0a;
+    color:  #0a0a0a;
+}
+
+.input {
+    width: 354.89px;
+    height: 55.653px;
+    flex-shrink: 0;
+    border-radius: 8.066px;
+    background: #FFF;
+    padding-left: 29.04px;
+}
+.input::placeholder{
+    color: #A39787;
+    font-size: 12.905px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.input:focus {
+    outline: none;
+    border-color: #0a0a0a;
+    background: #edf5ee;
+}
+
+.button {
+    width: 251.65px;
+    height: 50.01px;
+    padding: 12px 20px;
+    gap: 10px;
+    margin: auto;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 6.45px;
+    background: #DF6A3F;
+    text-align: center;
+    align-items: center;
+}
+
+.button:hover {
+    background-color: #ee3c39;
+}
+
+
+a{
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 16px;
+    align-self: center;
+    
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.logo{
+    width: 241px;
+    height: 68px;
+    align-content: baseline;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 14px;
+  padding: 16px 0;
+  padding-bottom: 32px;
+}
+
+span{
+    color: #fff !important;
+    font-family: "Poppins" sans-serif;
+}
+.checkbox-input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-label {
+  width: 25px; /* Aumentei um pouco para a patinha caber melhor */
+  height: 25px;
+  border: 2px solid #888;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-input:checked + .checkbox-label {
+  background-color: #DF6A3F;
+  border-color: #DF6A3F;
+}
+
+/* A MÁGICA ACONTECE AQUI! */
+/* Trocamos o '✔' pelo emoji de patinha '🐾' */
+.checkbox-input:checked + .checkbox-label::after {
+  content: '🐾';
+  font-size: 20px; /* Ajuste o tamanho conforme necessário */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+p, a{
+    color: #fff !important;
+}

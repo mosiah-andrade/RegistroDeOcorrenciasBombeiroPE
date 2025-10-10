@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Esqueceu.module.css";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 
 const Cadastrar = () => {
     const [form, setForm] = useState({

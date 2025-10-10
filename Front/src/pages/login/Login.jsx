@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import styles from "./Login.module.css";
-import logo from "../../assets/logo.svg";
+import "./Login.css";
+import logo from "../../assets/logo.png";
 
 const Login = () => {
-    const [emailOrCPF, setEmailOrCPF] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [keepLoged, setKeepLoged] = useState("");
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
@@ -14,7 +15,7 @@ const Login = () => {
             const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ identifier: emailOrCPF, password }),
+                body: JSON.stringify({ identifier: email, password, keepLoged }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -29,40 +30,51 @@ const Login = () => {
     };
 
     return (
-        <div className="bg-black-900 " style={{ backgroundImage: `url(https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-            <div className={styles.container}>
-                <img src={logo} alt="Logo" className={styles.logo} />
-                <h1>CBMPE</h1>
-                <h2>Insira suas informações de cadastro</h2>
-                <form className={styles.form} id="loginForm" onSubmit={handleSubmit}>
+        <div className="bg-black-900 page ">
+           
+            <div className={"container"}>
+                <form className={"form"} id="loginForm" onSubmit={handleSubmit}>
+                    <img src={logo} alt="Logo" className={"logo"} />
+                    <p className="subtitle">Que bom ter você de volta</p>
                     {error && <div style={{ color: "red" }}>{error}</div>}
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="emailOrCPF" className={styles.label}>Email ou CPF</label>
+                    <div className={"inputGroup"}>
                         <input
                             type="text"
                             id="emailOrCPF"
                             name="email ou CPF"
-                            className={styles.input}
-                            value={emailOrCPF}
-                            onChange={e => setEmailOrCPF(e.target.value)}
+                            className={"input"}
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            placeholder="E-mail"
                         />
                     </div>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="password" className={styles.label}>Senha</label>
+                    <div className={"inputGroup"}>
                         <input
                             type="password"
                             id="password"
                             name="password"
-                            className={styles.input}
+                            className={"input"}
                             value={password}
                             onChange={e => setPassword(e.target.value)}
+                            placeholder="Senha"
                         />
                     </div>
-                    <button type="submit" className={styles.button}>Entrar</button>
+                    <div className="checkbox-container">
+                            <input
+                                type="checkbox"
+                                id="keepLogedCheckbox"
+                                className="checkbox-input"
+                                checked={keepLoged}
+                                onChange={e => setKeepLoged(e.target.checked)}
+                            />
+                            <label htmlFor="keepLogedCheckbox" className="checkbox-label"></label>
+                            <span>Mantenha-me logado</span>
+                        </div>
+                    <button type="submit" className={"button"}>Entrar</button>
                     <p>Esqueceu sua senha? <a href="/esqueceu">Clique aqui</a> </p>
                 </form>
-                <p>Não possui uma conta? <a href="/cadastrar">Crie agora!</a></p>
             </div>
+            <div className="bg"></div>
         </div>
     );
 };
