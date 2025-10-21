@@ -68,10 +68,10 @@ const Login = () => {
                                 onChange={e => setKeepLoged(e.target.checked)}
                             />
                             <label htmlFor="keepLogedCheckbox" className="checkbox-label"></label>
-                            <span>Mantenha-me logado</span>
+                            <span className={"span"}>Mantenha-me logado</span>
                         </div>
                     <button type="submit" className={"button"}>Entrar</button>
-                    <p>Esqueceu sua senha? <a href="/esqueceu">Clique aqui</a> </p>
+                    <p className={"loginFooter"}>Esqueceu sua senha? <a href="/esqueceu" className={"loginFooter"}>Clique aqui</a> </p>
                 </form>
             </div>
             <div className="bg"></div>

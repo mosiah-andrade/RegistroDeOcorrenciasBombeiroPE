@@ -10,6 +10,7 @@ import NovaOcorrencia from './pages/nova-ocorrencia/NovaOcorrencia';
 import Login from './pages/login/Login';
 import Cadastrar from './pages/cadastrar/Cadastrar';
 import Esqueceu from './pages/esqueceu/Esqueceu';
+import Ocorrencias from './pages/ocorrencias/Ocorrencias';
 
 import './index.css';
 
@@ -25,6 +26,7 @@ function App() {
       {/* A rota pai "element={<MainLayout />}" aplica o layout para todas as rotas filhas */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/ocorrencias" element={<Ocorrencias />} />
         <Route path="/ocorrencias/nova" element={<NovaOcorrencia />} />
         {/* Adicione aqui outras rotas que devem ter o layout principal */}
         {/* Exemplo: <Route path="/perfil" element={<ProfilePage />} /> */}

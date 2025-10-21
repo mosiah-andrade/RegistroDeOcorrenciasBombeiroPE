@@ -69,7 +69,7 @@ const Cadastrar = () => {
                 <h2>Insira suas informações</h2>
                 <form className={styles.form} id="cadastrarForm" onSubmit={handleSubmit} method="POST" >
                     <div className={styles.inputGroup}>
-                        <label htmlFor="firstName" className={styles.label}>Primeiro Nome <span>*</span></label>
+                        <label htmlFor="firstName" className={styles.label}>Primeiro Nome <span className={"span"}>*</span></label>
                         <input
                             type="text"
                             id="firstName"
@@ -81,7 +81,7 @@ const Cadastrar = () => {
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="lastName" className={styles.label}>Sobrenome <span>*</span></label>
+                        <label htmlFor="lastName" className={styles.label}>Sobrenome <span className={"span"}>*</span></label>
                         <input
                             type="text"
                             id="lastName"
@@ -93,7 +93,7 @@ const Cadastrar = () => {
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="cpf" className={styles.label}>CPF <span>*</span></label>
+                        <label htmlFor="cpf" className={styles.label}>CPF <span className={"span"}>*</span></label>
                         <input
                             type="text"
                             id="cpf"
@@ -105,7 +105,7 @@ const Cadastrar = () => {
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="email" className={styles.label}>Email <span>*</span></label>
+                        <label htmlFor="email" className={styles.label}>Email <span className={"span"}>*</span></label>
                         <input
                             type="email"
                             id="email"
@@ -117,7 +117,7 @@ const Cadastrar = () => {
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="numeroTelefone" className={styles.label}>Número de Telefone <span>*</span></label>
+                        <label htmlFor="numeroTelefone" className={styles.label}>Número de Telefone <span className={"span"}>*</span></label>
                         <input
                             type="text"
                             id="numeroTelefone"
@@ -129,7 +129,7 @@ const Cadastrar = () => {
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="password" className={styles.label}>Senha <span>*</span></label>
+                        <label htmlFor="password" className={styles.label}>Senha <span className={"span"}>*</span></label>
                         <input
                             type="password"
                             id="password"
@@ -141,7 +141,7 @@ const Cadastrar = () => {
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="passwordConfirm" className={styles.label}>Confirme a Senha <span>*</span></label>
+                        <label htmlFor="passwordConfirm" className={styles.label}>Confirme a Senha <span className={"span"}>*</span></label>
                         <input
                             type="password"
                             id="passwordConfirm"

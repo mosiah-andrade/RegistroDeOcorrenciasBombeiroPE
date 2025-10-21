@@ -1,19 +1,27 @@
 // src/pages/HomePage.jsx
 
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../components/Sidebar'; // Ajuste o caminho se necessário
 import OcorrenciasTable from '../../components/OcorrenciasTable'; // Ajuste o caminho se necessário
+import portaFogo from '../../assets/portaFogo.png';
+import bombeiroMenino from '../../assets/bombeiroMenino.png';
+import doisBombeiros from '../../assets/doisBombeiro.png';
+import escada from '../../assets/escada.png';
+import roupa from '../../assets/roupa.png';
+import sinal from '../../assets/sinal.png';
+import axe from '../../assets/axe.png';
+import mangueira from '../../assets/mangueira.png';
+import styles from './Home.module.css';
 
 // --- Componente Auxiliar para os Cartões de Estatísticas ---
 // (Pode ser movido para seu próprio arquivo se preferir: StatCard.jsx)
 const StatCard = ({ value, label, imageUrl }) => (
-    <div className="bg-white p-5 rounded-xl border border-gray-200 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow duration-300">
+    <div className={` rounded-xl border border-gray-200 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow duration-300 ${styles.statCard} mb-10`}>
         <div>
-            <p className="text-4xl lg:text-5xl font-bold text-gray-800">{value}</p>
-            <p className="text-sm text-gray-500 mt-1">{label}</p>
+            <p className={`text-4xl lg:text-5xl font-bold ${styles.numberfloting}`}>{value}</p>
+            <p className={`text-sm mt-1 ${styles.label}`}>{label}</p>
         </div>
         <div className="flex-shrink-0">
-             <img src={imageUrl} alt={label} className="h-16 w-16 object-contain" />
+             <img src={imageUrl} alt={label} className="object-contain" />
         </div>
     </div>
 );
@@ -26,14 +34,14 @@ function HomePage() {
 
     // Dados para os cartões de estatísticas (com URLs de imagens funcionais)
     const statsData = [
-        { value: 52, label: 'Ocorrências nas 24h', imageUrl: 'https://i.imgur.com/8aVmvEz.png' },
-        { value: 13, label: 'Cidades afetadas', imageUrl: 'https://i.imgur.com/2pAbfVf.png' },
-        { value: 84, label: 'Ligações recebidas', imageUrl: 'https://i.imgur.com/dJ8qfA3.png' },
-        { value: 9, label: 'Tipos de ocorrência', imageUrl: 'https://i.imgur.com/fB7gS8B.png' },
-        { value: 62, label: 'Bombeiros envolvidos', imageUrl: 'https://i.imgur.com/eQJt3jF.png' },
-        { value: 71, label: 'Ocorrências aprovadas', imageUrl: 'https://i.imgur.com/c4Y2Jq9.png' },
-        { value: 36, label: 'Ocorrências em análise', imageUrl: 'https://i.imgur.com/8vRkG2o.png' },
-        { value: 5, label: 'Ocorrências pendentes', imageUrl: 'https://i.imgur.com/7Yw7xT7.png' },
+        { value: 52, label: 'Ocorrências nas 24h', imageUrl: portaFogo },
+        { value: 13, label: 'Cidades afetadas', imageUrl: bombeiroMenino },
+        { value: 84, label: 'Ligações recebidas', imageUrl: doisBombeiros },
+        { value: 9, label: 'Tipos de ocorrência', imageUrl: escada },
+        { value: 62, label: 'Bombeiros envolvidos', imageUrl: roupa },
+        { value: 71, label: 'Ocorrências aprovadas', imageUrl: sinal },
+        { value: 36, label: 'Ocorrências em análise', imageUrl: axe },
+        { value: 5, label: 'Ocorrências pendentes', imageUrl: mangueira },
     ];
     
     // Simulação de busca de dados da API
@@ -58,7 +66,7 @@ function HomePage() {
     return (
         <div className="flex min-h-screen bg-[#F7F7F7]">
 
-            <main className="flex-grow p-6 lg:p-8">
+            <main className="flex-grow p-8 lg:p-8">
                 {/* Grade de Estatísticas */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     {statsData.map((stat, index) => (

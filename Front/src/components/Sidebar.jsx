@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 // Importe apenas UMA versão de cada ícone
 import logo from '../assets/nino-logo.png';
 import homeIcon from '../assets/home-icon.png';
@@ -8,35 +8,27 @@ import shieldIcon from '../assets/certificate-icon.png'; // Supondo que você te
 import settingsIcon from '../assets/settings-icon.png';
 import profileIcon from '../assets/profile-icon.png';
 
-const NavItem = ({ icon, text, active, onClick }) => (
+const NavItem = ({ to, icon, text, active, onClick }) => (
   <li className="relative group">
-    <a
-      href="#"
+    {/* 💡 Passo 3: Substitua <a> por <Link> e href por to */}
+    <Link
+      to={to} // O destino da navegação
       onClick={onClick}
       className={`
         flex items-center justify-center h-16 w-16 mx-auto rounded-lg
         transition-all duration-300
-        ${
-          active
-            ? 'bg-gradient-to-l from-orange-300 to-transparent' // Fundo ativo
-            : '' // Fundo padrão
-        }
+        ${active ? 'bg-gradient-to-l from-orange-300 to-transparent' : ''}
       `}
     >
-      {/* A mágica acontece aqui no className da imagem */}
       <img
         src={icon}
         alt={text}
         className={`
           w-7 h-7 object-contain transition-all duration-300
-          ${
-            active
-              ? 'filter drop-shadow-[0_1px_3px_rgba(249,115,22,0.7)]' // EFEITO DE BRILHO LARANJA
-              : '' // Sem efeito
-          }
+          ${active ? 'filter drop-shadow-[0_1px_3px_rgba(249,115,22,0.7)]' : ''}
         `}
       />
-    </a>
+    </Link>
     <div className={`
       absolute left-full ml-4 px-3 py-2 text-sm font-medium text-white bg-gray-800 
       rounded-md shadow-lg whitespace-nowrap opacity-0 pointer-events-none
@@ -51,9 +43,9 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState('Início');
 
   const navItems = [
-    { name: 'Início', icon: homeIcon },
-    { name: 'Ocorrências', icon: checklistIcon },
-    { name: 'Segurança', icon: shieldIcon },
+    { name: 'Início', icon: homeIcon, path: '/' },
+    { name: 'Ocorrências', icon: checklistIcon, path: '/ocorrencias' },
+    { name: 'Segurança', icon: shieldIcon, path: '/funcionarios' },
   ];
 
   return (
@@ -67,6 +59,7 @@ const Sidebar = () => {
           {navItems.map((item) => (
             <NavItem
               key={item.name}
+              to={item.path}
               icon={item.icon}
               text={item.name}
               active={activeItem === item.name}
@@ -78,12 +71,14 @@ const Sidebar = () => {
 
       <div className="mt-auto space-y-3">
         <NavItem
+          to="/configuracoes"
           icon={settingsIcon}
           text="Configurações"
           active={activeItem === 'Configurações'}
           onClick={() => setActiveItem('Configurações')}
         />
         <NavItem
+          to="/perfil"
           icon={profileIcon}
           text="Meu Perfil"
           active={activeItem === 'Perfil'}

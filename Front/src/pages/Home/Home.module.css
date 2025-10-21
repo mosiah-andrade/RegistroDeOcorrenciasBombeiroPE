@@ -1,10 +1,39 @@
-/* Home.module.css - Limpo */
+/* Home.module.css -  */
 
-/* A estilização principal agora é feita via Tailwind CSS no componente HomePage.js */
-/* Você pode remover os seletores antigos como #profile, .box, etc. */
+p {
+    color: black !important;
+}
+.numberfloting {
+    position: relative ;
+    top: -45px ;
+    left: -45px;
+    color: #071C50 ;
+    border: solid 2px #071C50 ;
+    width: fit-content ;
+    padding: 25px;
+    border-radius: 30px;
+    background-color: #F3F8FF;
+    border: 1px solid rgba(223, 106, 63, 0.51);
+}
+.statCard {
+    background-color: #F3F8FF;
+    max-width: 300px;
+    max-height: 128;
+    img{
+        height: 128px;
 
-/* Se precisar de estilos globais, considere um arquivo CSS principal como index.css */
-body {
-    background-color: #F7F7F7; /* Define um fundo base para todo o app */
-    font-family: 'Inter', sans-serif; /* Exemplo de uma fonte moderna */
+    }
+}
+.label {
+    position: relative;
+    top: -30px;
+    left: 20px;
+    color: #000;
+    opacity: 0.5;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    max-width: 150px;
 }

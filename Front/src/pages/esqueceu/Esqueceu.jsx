@@ -62,7 +62,7 @@ const Cadastrar = () => {
                 <p>Recupere a senha pelo e-mail ou número</p>
                 <form className={styles.form} id="cadastrarForm" onSubmit={handleSubmit} method="POST" >
                     <div className={styles.inputGroup}>
-                        <label htmlFor="email" className={styles.label}>Email <span>*</span></label>
+                        <label htmlFor="email" className={styles.label}>Email <span className={"span"}>*</span></label>
                         <input
                             type="email"
                             id="email"
@@ -75,7 +75,7 @@ const Cadastrar = () => {
                     </div>
                     <p>Ou</p>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="numeroTelefone" className={styles.label}>Número de Telefone <span>*</span></label>
+                        <label htmlFor="numeroTelefone" className={styles.label}>Número de Telefone <span className={"span"}>*</span></label>
                         <input
                             type="text"
                             id="numeroTelefone"
