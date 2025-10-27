@@ -1,0 +1,46 @@
+.tabela{
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    text-align: center;
+    img{
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+    tr{
+        border-bottom: 1px solid #E0E0E0;
+        height: 60px;
+    }
+
+    .nome{
+      display: flex;
+      align-items: center;
+    }
+    .nomeinfo{
+      display: flex;
+      flex-direction: column;
+      .employee-name{
+        text-align: left !important;
+        font-size: 16px;
+        margin: 0;
+        font-weight: 500;
+      }
+      .nomeinfo .employee-name{
+        text-align: left !important;
+        font-size: 16px;
+        margin: 0;
+        font-weight: 500;
+      }
+      .spanfuncionario{
+        font-size: 14px;
+        color: #8b8888;
+      }
+    }
+    
+}

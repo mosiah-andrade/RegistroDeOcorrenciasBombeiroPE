@@ -155,7 +155,7 @@ const Cadastrar = () => {
                     {error && <div className={styles.error}>{error}</div>}
                     <button type="submit" className={styles.button}>Cadastrar</button>
                 </form>
-                <p>Deseja voltar ao login? <a href="/login">Clique aqui</a></p>
+                <p className="pcadastrar">Deseja voltar ao login? <a href="/login">Clique aqui</a></p>
             </div>
         </div>
     );

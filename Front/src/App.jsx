@@ -11,6 +11,7 @@ import Login from './pages/login/Login';
 import Cadastrar from './pages/cadastrar/Cadastrar';
 import Esqueceu from './pages/esqueceu/Esqueceu';
 import Ocorrencias from './pages/ocorrencias/Ocorrencias';
+import Funcionarios from './pages/funcionarios/Funcionarios';
 
 import './index.css';
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/ocorrencias" element={<Ocorrencias />} />
         <Route path="/ocorrencias/nova" element={<NovaOcorrencia />} />
+        <Route path="/funcionarios" element={<Funcionarios />} />
         {/* Adicione aqui outras rotas que devem ter o layout principal */}
         {/* Exemplo: <Route path="/perfil" element={<ProfilePage />} /> */}
       </Route>

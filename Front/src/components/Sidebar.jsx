@@ -45,7 +45,7 @@ const Sidebar = () => {
   const navItems = [
     { name: 'Início', icon: homeIcon, path: '/' },
     { name: 'Ocorrências', icon: checklistIcon, path: '/ocorrencias' },
-    { name: 'Segurança', icon: shieldIcon, path: '/funcionarios' },
+    { name: 'Funcionarios', icon: shieldIcon, path: '/funcionarios' },
   ];
 
   return (

@@ -59,7 +59,7 @@ const Cadastrar = () => {
             <div className={styles.container}>
                 <img src={logo} alt="Logo" className={styles.logo} />
                 <h2>Esqueceu a Senha?</h2>
-                <p>Recupere a senha pelo e-mail ou número</p>
+                <p className="plogin">Recupere a senha pelo e-mail ou número</p>
                 <form className={styles.form} id="cadastrarForm" onSubmit={handleSubmit} method="POST" >
                     <div className={styles.inputGroup}>
                         <label htmlFor="email" className={styles.label}>Email <span className={"span"}>*</span></label>
@@ -73,7 +73,7 @@ const Cadastrar = () => {
                             required
                         />
                     </div>
-                    <p>Ou</p>
+                    <p className="plogin">Ou</p>
                     <div className={styles.inputGroup}>
                         <label htmlFor="numeroTelefone" className={styles.label}>Número de Telefone <span className={"span"}>*</span></label>
                         <input
@@ -92,7 +92,7 @@ const Cadastrar = () => {
                         <button type="button" className={styles.buttonCancelar} onClick={() => navigate(-1)}>Cancelar</button>
                     </section>
                 </form>
-                <p>Não possui uma conta? <a href="/cadastrar">Crie agora!</a></p>
+                <p className="plogin">Não possui uma conta? <a href="/cadastrar">Crie agora!</a></p>
             </div>
         </div>
     );
