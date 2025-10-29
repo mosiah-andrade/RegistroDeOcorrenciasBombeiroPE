@@ -342,7 +342,7 @@ function Ocorrencias() {
                     </div>
                 </div>
 
-                {isLoading && (
+                {!isLoading && (
                     <div className="p-6 text-center text-gray-500">
                         Carregando ocorrências...
                     </div>
