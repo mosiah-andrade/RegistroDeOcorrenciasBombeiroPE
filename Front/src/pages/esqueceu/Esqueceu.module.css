@@ -1,4 +1,4 @@
-/* Esqueceu.module.css */
+/* Esqueceu.module.css
 
 .container {
     display: flex;
@@ -46,7 +46,7 @@
 
 .input {
     width: 100%;
-    font-size: 16px; /* Garante que o padding não aumente a largura total */
+    font-size: 16px; 
     border:none;
     border-bottom: 2px solid #a1a0a0;
     border-radius: 0;
@@ -65,8 +65,8 @@
 
 .buttonBox{
     display: flex ;
-    justify-content: space-around ; /* ou space-around, space-evenly */
-    gap: 16px; /* opcional, para espaçamento fixo entre botões */
+    justify-content: space-around ; 
+    gap: 16px;
 }
 
 .button {
@@ -112,4 +112,4 @@ button:hover {
 
 .a:hover {
     text-decoration: underline;
-}
+} */

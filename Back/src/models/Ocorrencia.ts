@@ -15,7 +15,6 @@ export interface IOcorrencia extends Document {
   responsavel: IResponsavel;
   regiao: string;
   tipo: string;
-  descricao: string;
   data?: Date;
   status: StatusOcorrencia;
 
@@ -25,8 +24,7 @@ export interface IOcorrencia extends Document {
   setRegiao(Reg: string): void;
   getTipo(): string;
   setTipo(Tip: string): void;
-  getDescricao(): string;
-  setDescricao(Desc: string): void;
+
   getStatus(): StatusOcorrencia;
   setStatus(Stat: StatusOcorrencia): void;
 }
@@ -34,15 +32,13 @@ class OcorrenciaClass {
   responsavel!: IResponsavel;
   regiao!: string;
   tipo!: string;
-  descricao!: string;
   data?: Date;
   status!: StatusOcorrencia;
 
-  constructor(responsavel?: IResponsavel, regiao?: string, tipo?: string, descicao?: string, data?: Date, status?: StatusOcorrencia) {
+  constructor(responsavel?: IResponsavel, regiao?: string, tipo?: string,  data?: Date, status?: StatusOcorrencia) {
     if (responsavel) this.responsavel = responsavel;
     if (regiao) this.regiao = regiao;
     if (tipo) this.tipo = tipo;
-    if (descicao) this.descricao = descricao;
     if (data) this.data = data;
     if (status) this.status = status;
   }
@@ -55,9 +51,6 @@ class OcorrenciaClass {
 
   getTipo() { return this.tipo; }
   setTipo(Tip: string) { this.tipo = Tip; }
-
-  getDescricao() { return this.descricao; }
-  setDescricao(Desc: string) { this.descricao = Desc; } 
   
   getStatus() { return this.status; }
   setStatus(Stat: StatusOcorrencia) { this.status = Stat; }
@@ -70,7 +63,6 @@ const OcorrenciaSchema = new Schema<IOcorrencia>({
   },
   regiao: { type: String, required: true },
   tipo: { type: String, required: true },
-  descricao: { type: String, required: true },
   data: { type: Date, default: Date.now },
   status: {
     type: String,

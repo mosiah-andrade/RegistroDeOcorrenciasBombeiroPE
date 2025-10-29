@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// Importe apenas UMA versão de cada ícone
 import logo from '../assets/nino-logo.png';
 import homeIcon from '../assets/home-icon.png';
 import checklistIcon from '../assets/file-icon.png'; // Usando os nomes da sua imagem
@@ -43,9 +42,9 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState('Início');
 
   const navItems = [
-    { name: 'Início', icon: homeIcon, path: '/' },
+    { name: 'Início', icon: homeIcon, path: '/ocorrencias' },//depois tirar o ocorrencias e manter só "/"
     { name: 'Ocorrências', icon: checklistIcon, path: '/ocorrencias' },
-    { name: 'Funcionarios', icon: shieldIcon, path: '/funcionarios' },
+    { name: 'Funcionarios', icon: shieldIcon, path: '/ocorrencias' },//depois trocar para funcionario
   ];
 
   return (

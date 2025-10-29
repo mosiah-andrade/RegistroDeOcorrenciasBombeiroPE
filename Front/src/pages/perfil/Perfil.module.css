@@ -1,4 +1,4 @@
-.perfilPage{
+/* .perfilPage{
     display: grid;
     grid-template-columns: 450px auto;
     gap: 20px;
@@ -57,4 +57,4 @@
 .activeLink{
     background: linear-gradient(270deg, rgba(242, 98, 34, 0.50) 39.9%, rgba(255, 255, 255, 0.50) 100%);
     border-left: 8px solid #F26222;
-}
+} */

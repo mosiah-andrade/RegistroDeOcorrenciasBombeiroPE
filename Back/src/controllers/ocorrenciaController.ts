@@ -4,12 +4,11 @@ import Ocorrencia, { StatusOcorrencia } from '../models/Ocorrencia';
 
 export const getAllOcorrencias = async (req: Request, res: Response) => {
   try {
-    const { regiao, tipo, status, responsavelNome, descricao, startDate, endDate } = req.query;
+    const { regiao, tipo, status, responsavelNome,  startDate, endDate } = req.query;
     const filter: any = {};
 
     if (regiao) filter.regiao = { $regex: String(regiao), $options: 'i' };
     if (tipo) filter.tipo = { $regex: String(tipo), $options: 'i' };
-    if (descricao) filter.descricao = { $regex: String(descricao), $options: 'i' };
     if (status) filter.status = String(status);
     if (responsavelNome) filter['responsavel.nome'] = { $regex: String(responsavelNome), $options: 'i' };
 
@@ -43,13 +42,13 @@ export const getOcorrenciasStats = async (req: Request, res: Response) => {
 
 export const createOcorrencia = async (req: Request, res: Response) => {
   try {
-    const { responsavel, regiao, tipo, descricao, data, status } = req.body;
+    const { responsavel, regiao, tipo, data, status } = req.body;
 
     if (!responsavel || !responsavel.nome || !responsavel.cargo) {
       return res.status(400).json({ message: 'Campos obrigatórios ausentes: responsavel.nome e responsavel.cargo' });
     }
-    if (!regiao || !tipo || !descricao) {
-      return res.status(400).json({ message: 'Campos obrigatórios ausentes: região, tipo e descrição' });
+    if (!regiao || !tipo) {
+      return res.status(400).json({ message: 'Campos obrigatórios ausentes: região e tipo' });
     }
 
     const ocorrenciaData: any = {
@@ -59,7 +58,6 @@ export const createOcorrencia = async (req: Request, res: Response) => {
       },
       regiao: String(regiao),
       tipo: String(tipo),
-      descricao: String(descricao)
     };
 
     if (data) ocorrenciaData.data = new Date(data);
@@ -96,7 +94,6 @@ export const updateOcorrencia = async (req: Request, res: Response) => {
     }
     if (updates.regiao) allowed.regiao = String(updates.regiao);
     if (updates.tipo) allowed.tipo = String(updates.tipo);
-    if (updates.descricao) allowed.descricao = String(updates.descricao);
     if (updates.data) allowed.data = new Date(updates.data);
     if (updates.status) allowed.status = String(updates.status);
 
@@ -128,12 +125,11 @@ export const deleteOcorrencia = async (req: Request, res: Response) => {
 
 export const filterOcorrencias = async (req: Request, res: Response) => {
   try {
-    const { regiao, tipo, responsavelNome, startDate, endDate, status, descricao } = req.query; 
+    const { regiao, tipo, responsavelNome, startDate, endDate, status } = req.query; 
     const filter: any = {};
 
     if (regiao) filter.regiao = { $regex: String(regiao), $options: 'i' };
     if (tipo) filter.tipo = { $regex: String(tipo), $options: 'i' };
-    if (descricao) filter.descricao = { $regex: String(descricao), $options: 'i' };
     if (status) filter.status = String(status); 
     if (responsavelNome) filter['responsavel.nome'] = { $regex: String(responsavelNome), $options: 'i' };
 

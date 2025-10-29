@@ -2,7 +2,7 @@ import React from 'react';
 import Styles from './FilterDropdown.module.css';
 
 
-const FilterDropdown = ({ label, options, value, onChange, classe }) => {
+const FilterDropdown = ({ label, options, value, onChange }) => {
   return (
     <div>
       <label htmlFor={label} className={`block text-sm font-medium text-gray-700 mb-1 `}>
