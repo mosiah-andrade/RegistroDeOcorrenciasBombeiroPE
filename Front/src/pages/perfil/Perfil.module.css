@@ -1,0 +1,60 @@
+.perfilPage{
+    display: grid;
+    grid-template-columns: 450px auto;
+    gap: 20px;
+    grid-template-rows: calc(auto + 5%);
+}
+
+.imgPerfil{
+    width: 9.2rem;
+    height: 9.2rem;
+    border-radius: 100%;
+    background-color: #000;
+    border: 8px solid white;
+}
+.atividadeContainer{
+    height: 1200px;
+}
+.imgContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 100%;
+    background-color: #A39787;
+    margin-top: 4rem;
+}
+.perfilName{
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 10px;
+    color: #A39787;
+}
+.links{
+    display: flex;
+    flex-direction: column;
+    text-align: left ;
+    gap: 20px;
+    width: 100%;
+}
+.link{
+    text-decoration: none;
+    color: black;
+    height: 4rem;
+    font-weight: bold;
+    padding: 10px;
+    padding-left: 20%;
+    display: flex;
+    align-items: center;
+}
+.link:hover {
+    text-decoration: none;
+    cursor: pointer;
+    background: linear-gradient(270deg, rgba(242, 98, 34, 0.50) 39.9%, rgba(255, 255, 255, 0.50) 100%);
+    
+}
+.activeLink{
+    background: linear-gradient(270deg, rgba(242, 98, 34, 0.50) 39.9%, rgba(255, 255, 255, 0.50) 100%);
+    border-left: 8px solid #F26222;
+}
