@@ -26,6 +26,7 @@ export const getAllOcorrencias = async (req: Request, res: Response) => {
   }
 };
 
+
 export const getOcorrenciasStats = async (req: Request, res: Response) => {
   try {
     const stats = await Ocorrencia.aggregate([
@@ -66,6 +67,7 @@ export const createOcorrencia = async (req: Request, res: Response) => {
     await ocorrencia.save();
     return res.status(201).json(ocorrencia);
   } catch (err: any) {
+    console.error("Erro detalhado ao criar ocorrência:", err);
     return res.status(500).json({ message: 'Erro ao criar ocorrência', error: err.message });
   }
 };

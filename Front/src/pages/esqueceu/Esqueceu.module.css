@@ -101,7 +101,7 @@ button:hover {
     font-style: italic;
     margin-bottom: 16px;
 }
-a{
+.a{
     text-decoration: none;
     color: black;
     font-weight: bold;
@@ -110,6 +110,6 @@ a{
     
 }
 
-a:hover {
+.a:hover {
     text-decoration: underline;
 }

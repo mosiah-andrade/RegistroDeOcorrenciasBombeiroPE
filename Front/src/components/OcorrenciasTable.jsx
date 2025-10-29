@@ -1,5 +1,7 @@
     import { FiMoreVertical } from 'react-icons/fi';
 
+import React from 'react';
+import { HiOutlineDotsHorizontal, HiOutlineTrash } from 'react-icons/hi';
 
 const getStatusProps = (status) => {
     switch (status) {
