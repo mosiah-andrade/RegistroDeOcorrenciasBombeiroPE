@@ -211,7 +211,11 @@ const Cadastrar = () => {
 
           <p className="mt-4 w-full text-left text-white xl:w-[355px]">
             Já tem uma conta?{" "}
+<<<<<<< HEAD
             <a href="/" className="font-bold text-white no-underline hover:underline">
+=======
+            <a href="/login" className="font-bold text-white no-underline hover:underline">
+>>>>>>> 410f64675b10bc54a4511653c28c101a6cd7fa03
               Fazer login
             </a>
           </p>
