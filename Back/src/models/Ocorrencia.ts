@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export enum StatusOcorrencia {
-  ABERTO = 'aberto',
+  ABERTO = 'Aberto',
   EM_ANDAMENTO = 'em_andamento',
   CONCLUIDO = 'concluido',
   CANCELADO = 'cancelado'

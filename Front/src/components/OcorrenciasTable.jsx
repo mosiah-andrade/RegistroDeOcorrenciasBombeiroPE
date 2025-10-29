@@ -1,27 +1,30 @@
 // src/components/OcorrenciasTable.jsx
 
 import React from 'react';
-import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { HiOutlineDotsHorizontal, HiOutlineTrash } from 'react-icons/hi';
 
 // Função para obter a classe de estilo do status
 const getStatusClasses = (status) => {
     switch (status) {
         case 'Aberto': 
             return 'bg-gray-100 px-5 py-2 text-gray-700 font-semibold shadow-sm border border-gray-200'; 
-        case 'Aprovado':
-            return 'rounded-full bg-emerald-100 px-5 py-2 text-base font-semibold text-emerald-700 shadow-sm border border-emerald-200 ';
-        case 'Pendente':
+        case 'em_andamento':
             return 'bg-yellow-100 px-5 py-2  text-yellow-700 font-semibold  shadow-sm border border-yellow-200 ';
-        case 'Recusado/Atrasado':
+        case 'concluido':
+            return 'rounded-full bg-emerald-100 px-5 py-2 text-base font-semibold text-emerald-700 shadow-sm border border-emerald-200 ';
+        case 'cancelado':
             return 'bg-red-100 px-5 py-2  text-red-700 font-semibold  shadow-sm border border-red-200 ';
         default:
             return 'bg-gray-100 px-5 py-2 text-gray-700 font-semibold shadow-sm border border-gray-200';
     }
 };
-const OcorrenciasTable = ({ data }) => {
+
+
+const OcorrenciasTable = ({ data, onDelete }) => {
     if (!data || data.length === 0) {
         return <p className="text-center text-gray-500 py-8">Nenhuma ocorrência encontrada.</p>;
     }
+
 
     return (
         <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
@@ -65,9 +68,17 @@ const OcorrenciasTable = ({ data }) => {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.regiao}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.tipo}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button className="text-gray-400 hover:text-orange-600 p-2 rounded-full">
-                                    {item.extra} <HiOutlineDotsHorizontal className="inline ml-2"/>
+                                {/* <button conclick={editar(item._id)}>
+                                    Editar
+                                </button> */}
+                                <button
+                                    onClick={() => onDelete(item._id)} // Chama a função onDelete passada como prop com o ID
+                                    className="text-red-500 hover:text-red-700 p-2 rounded-full"
+                                    title="Excluir Ocorrência" // Dica para o usuário
+                                >
+                                    <HiOutlineTrash size={18} className="inline"/> {/* Ícone de lixeira */}
                                 </button>
+
                             </td>
                         </tr>
                     ))}
