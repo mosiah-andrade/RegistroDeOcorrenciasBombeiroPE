@@ -3,15 +3,13 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate', // Mantém o PWA atualizado
+      registerType: 'autoUpdate',
 
-      // Aqui você cola o seu manifesto
       manifest: {
         "name": "Registro de ocorrencias Nino",
         "short_name": "Nino",

@@ -23,7 +23,6 @@ function PWAReloader() {
   if (offlineReady) {
     return (
       <div className="pwa-toast">
-        <span>App pronto para funcionar offline!</span>
         <button onClick={() => close()}>Fechar</button>
       </div>
     )
@@ -32,7 +31,6 @@ function PWAReloader() {
   if (needRefresh) {
     return (
       <div className="pwa-toast">
-        <span>Nova atualização disponível!</span>
         <button onClick={() => updateServiceWorker(true)}>Atualizar</button>
         <button onClick={() => close()}>Fechar</button>
       </div>

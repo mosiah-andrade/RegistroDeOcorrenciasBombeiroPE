@@ -11,14 +11,12 @@ import Cadastrar from './pages/cadastrar/Cadastrar';
 import Ocorrencias from './pages/ocorrencias/Ocorrencias';
 // import Perfil from './pages/perfil/Perfil';
 
-// 1. Importe o componente PWAReloader (como discutimos antes)
 import PWAReloader from './components/PWAReloader'; 
 
 import './index.css';
 
 function App() {
   return (
-    // 2. Adicione um Fragment <> para agrupar as Rotas e o Reloader
     <>
       <Routes>
         {/* Rotas PÚBLICAS (sem Sidebar e Header) */}
