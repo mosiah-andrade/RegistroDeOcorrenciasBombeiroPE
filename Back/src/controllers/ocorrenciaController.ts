@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import Ocorrencia from '../models/Ocorrencia';
+import Ocorrencia, { StatusOcorrencia } from '../models/Ocorrencia';
 
 export const getAllOcorrencias = async (req: Request, res: Response) => {
   try {
@@ -26,7 +26,7 @@ export const getOcorrenciasStats = async (req: Request, res: Response) => {
 
 export const createOcorrencia = async (req: Request, res: Response) => {
   try {
-    const { responsavel, regiao, tipo, data } = req.body;
+    const { responsavel, regiao, tipo, data, status } = req.body;
 
     if (!responsavel || !responsavel.nome || !responsavel.cargo) {
       return res.status(400).json({ message: 'Campos obrigatórios ausentes: responsavel.nome e responsavel.cargo' });
@@ -41,10 +41,11 @@ export const createOcorrencia = async (req: Request, res: Response) => {
         cargo: String(responsavel.cargo)
       },
       regiao: String(regiao),
-      tipo: String(tipo)
+      tipo: String(tipo),
     };
 
     if (data) ocorrenciaData.data = new Date(data);
+    if (status) ocorrenciaData.status = String(status);
 
     const ocorrencia = new Ocorrencia(ocorrenciaData);
     await ocorrencia.save();
@@ -76,6 +77,7 @@ export const updateOcorrencia = async (req: Request, res: Response) => {
     if (updates.regiao) allowed.regiao = String(updates.regiao);
     if (updates.tipo) allowed.tipo = String(updates.tipo);
     if (updates.data) allowed.data = new Date(updates.data);
+    if (updates.status) allowed.status = String(updates.status);
 
     const updated = await Ocorrencia.findByIdAndUpdate(id, allowed, { new: true });
     if (!updated) return res.status(404).json({ message: 'Ocorrência não encontrada' });

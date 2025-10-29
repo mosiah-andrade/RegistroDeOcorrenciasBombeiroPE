@@ -6,6 +6,8 @@ import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 // Função para obter a classe de estilo do status
 const getStatusClasses = (status) => {
     switch (status) {
+        case 'Aberto': 
+            return 'bg-gray-100 px-5 py-2 text-gray-700 font-semibold shadow-sm border border-gray-200'; 
         case 'Aprovado':
             return 'rounded-full bg-emerald-100 px-5 py-2 text-base font-semibold text-emerald-700 shadow-sm border border-emerald-200 ';
         case 'Pendente':
@@ -13,10 +15,9 @@ const getStatusClasses = (status) => {
         case 'Recusado/Atrasado':
             return 'bg-red-100 px-5 py-2  text-red-700 font-semibold  shadow-sm border border-red-200 ';
         default:
-            return 'bg-gray-100 text-gray-700';
+            return 'bg-gray-100 px-5 py-2 text-gray-700 font-semibold shadow-sm border border-gray-200';
     }
 };
-
 const OcorrenciasTable = ({ data }) => {
     if (!data || data.length === 0) {
         return <p className="text-center text-gray-500 py-8">Nenhuma ocorrência encontrada.</p>;
@@ -43,25 +44,25 @@ const OcorrenciasTable = ({ data }) => {
                                     <div className="flex-shrink-0 h-10 w-10">
                                         {/* Avatar genérico */}
                                         <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold">
-                                            {item.nome.charAt(0)}
+                                            {item.responsavel?.nome?.charAt(0) || '?'}
                                         </div>
                                     </div>
                                     <div className="ml-4">
-                                        <div className="text-sm font-medium text-gray-900">{item.nome}</div>
-                                        <div className="text-sm text-gray-500">{item.cargo}</div>
+                                        <div className="text-sm font-medium text-gray-900">{item.responsavel?.nome}</div>
+                                        <div className="text-sm text-gray-500">{item.responsavel?.cargo}</div>
                                     </div>
                                 </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{item.id}</div>
-                                <div className="text-sm text-gray-500">{item.timestamp}</div>
+                                <div className="text-sm text-gray-900">{item._id}</div>
+                                <div className="text-sm text-gray-500">{item.data}</div>
                             </td>
                             <td className=" px-6 py-4 whitespace-nowrap ">
                                 <span className={` px-3 py-1 text-xs font-semibold rounded-full ${getStatusClasses(item.status)}`}>
-                                    {item.status}
+                                    {item.status || 'Aberto'}
                                 </span>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.lotacao}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.regiao}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.tipo}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <button className="text-gray-400 hover:text-orange-600 p-2 rounded-full">
