@@ -1,7 +1,7 @@
 [![Status](https://img.shields.io/badge/status-active-success.svg)]() 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Deploy](https://img.shields.io/badge/deploy-vercel-black.svg?logo=vercel)](https://registro-de-ocorrencias-bombeiro-pe.vercel.app/)
-[![Contributions github](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?logo=github)](https://github.com/mosiah-andrade/RegistroDeOcorrenciasBombeiroPE/issues)
+[![Deploy](https://img.shields.io/badge/deploy-render-black.svg?logo=render)](https:///)
 
 # ![Logo](Front/public/logo.png)
 Sistema para registro e gestão de ocorrências.
