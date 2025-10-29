@@ -39,10 +39,6 @@ class OcorrenciaClass {
     if (responsavel) this.responsavel = responsavel;
     if (regiao) this.regiao = regiao;
     if (tipo) this.tipo = tipo;
-<<<<<<< HEAD
-=======
-    if (descricao) this.descricao = descricao;
->>>>>>> 410f64675b10bc54a4511653c28c101a6cd7fa03
     if (data) this.data = data;
     if (status) this.status = status;
   }
