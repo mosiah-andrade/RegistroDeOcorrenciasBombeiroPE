@@ -1,11 +1,9 @@
-![Logo](Front/public/logo.png)
-
 [![Status](https://img.shields.io/badge/status-active-success.svg)]() 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Deploy](https://img.shields.io/badge/deploy-vercel-black.svg?logo=vercel)](https://registro-de-ocorrencias-bombeiro-pe.vercel.app/)
 [![Contributions github](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?logo=github)](https://github.com/mosiah-andrade/RegistroDeOcorrenciasBombeiroPE/issues)
 
-# Nino
+# ![Logo](Front/public/logo.png)
 Sistema para registro e gestão de ocorrências.
 
 Nino é um felino curioso e aventureiro, que encanta por sua personalidade leve e carinhosa. Em suas descobertas, ele se arrisca, sobe alto e observa o mundo com atenção, sempre guiado pela vontade de explorar e aprender.
