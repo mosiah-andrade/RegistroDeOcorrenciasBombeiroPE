@@ -65,7 +65,7 @@ Inspirada nessa história, a NINO surge como um projeto que une afetividade, cor
 - [@mosiah-andrade](https://www.github.com/mosiah-andrade)
 - [@HeitorFarias](https://www.github.com/Hfaaf)
 - [@ViníciusGomes](https://www.github.com/viniciusgomes17)
-- 
--
+- [@llooizaq13](https://github.com/llooizaq13)
+- [@marianakottas](https://github.com/marianakottas)
 
 
