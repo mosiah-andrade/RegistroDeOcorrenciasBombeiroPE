@@ -8,7 +8,7 @@ const NovaOcorrencia = () => {
         nomeResponsavel: '',
         cargoResponsavel: 'Analista',
         regiao: '',
-        tipo: 'Incêndio',
+        tipo: 'Incêndio',   
     });
     const [error, setError] = useState('');
 
