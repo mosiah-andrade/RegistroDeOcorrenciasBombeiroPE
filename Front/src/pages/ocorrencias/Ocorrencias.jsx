@@ -54,11 +54,6 @@ function Ocorrencias() {
     const ITEMS_PER_PAGE = 7;
 
 
-// 2. CHAME A FUNÇÃO DENTRO DO USEEFFECT
-useEffect(() => {
-    fetchOcorrencias();
-}, [fetchOcorrencias]); // O useEffect vai rodar quando a função for definida
-    
    // A lógica de filtro pode ser conectada às abas no futuro se necessário
     
     const [loading, setLoading] = useState(true);
@@ -94,6 +89,7 @@ useEffect(() => {
     }, []); 
 
     const fetchOcorrencias = useCallback(async () => {
+        console.log("Iniciando fetchOcorrencias..."); // Log 1
         setLoading(true);
         setError(null);
         
@@ -105,16 +101,24 @@ useEffect(() => {
         
         try {
             const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/ocorrencias?${params.toString()}`);
+            console.log("Status da resposta:", response.status); // Log 2
             if (!response.ok) throw new Error('Falha ao buscar dados das ocorrências.');
             const data = await response.json();
+            console.log("Dados recebidos:", data); // Log 3
             setOcorrencias(data);
+            console.log("setOcorrencias chamado."); // Log 4
         } catch (err) {
             setError(err.message);
+            setError(err.message);
         } finally {
+            console.log("Executando finally: setIsLoading(false)"); // Log 6
             setLoading(false);
         }
     }, [filters]);
 
+    
+// 2. CHAME A FUNÇÃO DENTRO DO USEEFFECT
+        
     useEffect(() => {
         fetchOcorrencias();
     }, [fetchOcorrencias]);
@@ -169,14 +173,6 @@ useEffect(() => {
         }
     };
 
-    // ADICIONE ESTE BLOCO ANTES DO RETURN:
-    if (isLoading) {
-        return (
-            <div className="bg-stone-50 min-h-screen p-8 flex justify-center items-center">
-                <p className="text-lg text-gray-600">Carregando ocorrências...</p>
-            </div>
-        );
-    }
 
     if (error) {
         return (
@@ -228,7 +224,7 @@ useEffect(() => {
             alert('Houve um erro de conexão ao tentar excluir.');
         }
     };
-
+    console.log("Renderizando componente. isLoading:", isLoading); // Log 7
     return (
         <div className="bg-stone-50 min-h-screen p-4 sm:p-6 lg:p-8 font-sans">
             
@@ -307,12 +303,8 @@ useEffect(() => {
                 </div>
 
                 {/* Tabela de Ocorrências */}
-                <OcorrenciasTable data={currentOcorrencias} onDelete={handleDelete}/>
-                {loading && (
-                    <div className="p-6 text-center text-gray-500">
-                        Carregando ocorrências...
-                    </div>
-                )}
+                
+                
 
                 {error && (
                     <div className="p-6 text-center text-red-600">
@@ -322,7 +314,7 @@ useEffect(() => {
 
                 {!loading && !error && (
                     <>
-                        <OcorrenciasTable data={currentOcorrencias} />
+                        <OcorrenciasTable data={currentOcorrencias} onDelete={handleDelete}/>
 
                         <div className="px-6 py-3 flex flex-wrap gap-4 justify-between items-center border-t border-gray-200">
                             <button

@@ -14,7 +14,7 @@ function OcorrenciaModal({ isOpen, onClose, children}) { {
         >
             {/* Container do Modal */}
             <div
-                className="relative w-full max-w-lg rounded-lg bg-white p-6 shadow-xl"
+                className="relative max-w-lg rounded-lg bg-white p-6 shadow-xl"
                 // Impede que o clique dentro do modal feche o modal
                 onClick={(e) => e.stopPropagation()} 
             >
