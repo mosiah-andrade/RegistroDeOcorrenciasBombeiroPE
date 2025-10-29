@@ -21,6 +21,11 @@ Inspirada nessa história, a NINO surge como um projeto que une afetividade, cor
 - Interface responsiva para desktop e dispositivos móveis  
 - Deploy automatizado via **Vercel** e **Render**
 
+## Demonstração
+
+![Tela inicial](./public/demo/home.png)
+![Formulário de ocorrência](./public/demo/form.png)
+
 
 ## Tech Stack
 ### Frontend
@@ -65,8 +70,12 @@ Inspirada nessa história, a NINO surge como um projeto que une afetividade, cor
 
 ## Agradecimentos
 
-Projeto desenvolvido como parte da disciplina de **TADS042.3MN : CODING: MOBILE - SENAC/PE**, com colaboração e apoio dos professores e colegas de turma.
+Nosso sincero agradecimento a todas as pessoas que contribuíram para que o NINO ganhasse forma e propósito.
 
+Agradecemos especialmente a Mosiah, Brunna e Heitor, que tomaram a frente no desenvolvimento do front-end e back-end, transformando as ideias em uma aplicação funcional e bem estruturada.
 
+À Maria Luiza e Mariana, por idealizarem o conceito do projeto e conduzirem sua construção com sensibilidade, propósito e visão.
 
+E ao Vinícius, pela dedicação em documentar, organizar e guiar a equipe, garantindo que cada etapa fosse concluída com clareza e colaboração.
 
+Este projeto é resultado do esforço conjunto, da troca constante e do compromisso de todos em criar algo significativo — um reflexo de empatia, aprendizado e cooperação.
