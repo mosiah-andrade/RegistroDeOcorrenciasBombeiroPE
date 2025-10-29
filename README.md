@@ -21,11 +21,6 @@ Inspirada nessa história, a NINO surge como um projeto que une afetividade, cor
 - Interface responsiva para desktop e dispositivos móveis  
 - Deploy automatizado via **Vercel** e **Render**
 
-## Demonstração
-
-![Tela inicial](./public/demo/home.png)
-![Formulário de ocorrência](./public/demo/form.png)
-
 
 ## Tech Stack
 ### Frontend
