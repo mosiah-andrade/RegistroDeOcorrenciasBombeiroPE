@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./Cadastrar.module.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Cadastrar = () => {
   const [form, setForm] = useState({
@@ -13,23 +13,26 @@ const Cadastrar = () => {
     password: "",
     passwordConfirm: "",
   });
-
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
     setError("");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (form.password !== form.passwordConfirm) {
       setError("As senhas não coincidem.");
       return;
     }
-
     if (!form.email || !form.password) {
       setError("Preencha todos os campos.");
       return;
@@ -45,7 +48,7 @@ const Cadastrar = () => {
         lastName: form.lastName,
         CPF: form.cpf,
         email: form.email,
-        phone: form.numeroTelefone, // <-- Corrigido para 'phone'
+        phone: form.numeroTelefone,
         password: form.password,
       }),
     })
@@ -53,7 +56,7 @@ const Cadastrar = () => {
         const data = await response.json();
         if (response.ok) {
           alert("Cadastro realizado com sucesso!");
-          navigate("/");
+          navigate("/ocorrencias");
         } else {
           setError(data.message || "Erro ao cadastrar usuário");
         }
@@ -64,236 +67,163 @@ const Cadastrar = () => {
   };
 
   return (
-    <div className={styles.page}>
-      {/* Container do formulário */}
-      <div className={styles.container}>
-        <img src={logo} alt="Logo" className={styles.logo} />
-        <h2>Insira suas informações</h2>
-
-        <form
-          className={styles.form}
-          id="cadastrarForm"
+    <div className="flex h-max w-screen flex-col items-center justify-center bg-[linear-gradient(180deg,_#36312E_50.52%,_#D4D4D4_110.06%)] xl:flex-row">
+      
+      <div className="flex h-full w-full items-center justify-center p-6 xl:h-screen xl:w-1/2 xl:max-w-[700px]">
+        
+        <form 
+          className="m-auto flex w-full flex-col p-8 xl:min-w-[320px] xl:max-w-none" 
+          id="cadastrarForm" 
           onSubmit={handleSubmit}
           method="POST"
         >
-          <div className={styles.inputGroup}>
-            <label htmlFor="firstName" className={styles.label}>
-              Primeiro Nome <span className={"span"}>*</span>
-            </label>
+          <img 
+            src={logo} 
+            alt="Logo" 
+            className="mb-2 h-auto w-52 xl:h-[68px] xl:w-[241px]" 
+          />
+          <p className="my-5 text-left text-base font-normal text-white xl:text-[19px]">
+            Crie sua conta
+          </p>
+          
+          {error && <div className="mb-4 text-red-400">{error}</div>}
+
+          <div className="mb-4">
             <input
               type="text"
               id="firstName"
               name="firstName"
-              className={styles.input}
+              className="h-[56px] w-full rounded-[8px] bg-white pl-[29px] text-gray-800 placeholder:text-[13px] placeholder:font-medium placeholder:text-[#A39787] focus:outline-none focus:ring-2 focus:ring-[#DF6A3F] xl:w-[355px]"
               value={form.firstName}
               onChange={handleChange}
+              placeholder="Primeiro Nome"
               required
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="lastName" className={styles.label}>
-              Sobrenome <span className={"span"}>*</span>
-            </label>
+          <div className="mb-4">
             <input
               type="text"
               id="lastName"
               name="lastName"
-              className={styles.input}
+              className="h-[56px] w-full rounded-[8px] bg-white pl-[29px] text-gray-800 placeholder:text-[13px] placeholder:font-medium placeholder:text-[#A39787] focus:outline-none focus:ring-2 focus:ring-[#DF6A3F] xl:w-[355px]"
               value={form.lastName}
               onChange={handleChange}
+              placeholder="Sobrenome"
               required
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="cpf" className={styles.label}>
-              CPF <span className={"span"}>*</span>
-            </label>
+          <div className="mb-4">
             <input
               type="text"
               id="cpf"
               name="cpf"
-              className={styles.input}
+              className="h-[56px] w-full rounded-[8px] bg-white pl-[29px] text-gray-800 placeholder:text-[13px] placeholder:font-medium placeholder:text-[#A39787] focus:outline-none focus:ring-2 focus:ring-[#DF6A3F] xl:w-[355px]"
               value={form.cpf}
               onChange={handleChange}
+              placeholder="CPF"
               required
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>
-              Email <span className={"span"}>*</span>
-            </label>
+          <div className="mb-4">
             <input
               type="email"
               id="email"
               name="email"
-              className={styles.input}
+              className="h-[56px] w-full rounded-[8px] bg-white pl-[29px] text-gray-800 placeholder:text-[13px] placeholder:font-medium placeholder:text-[#A39787] focus:outline-none focus:ring-2 focus:ring-[#DF6A3F] xl:w-[355px]"
               value={form.email}
               onChange={handleChange}
+              placeholder="Email"
               required
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="numeroTelefone" className={styles.label}>
-              Número de Telefone <span className={"span"}>*</span>
-            </label>
+          <div className="mb-4">
             <input
               type="text"
               id="numeroTelefone"
               name="numeroTelefone"
-              className={styles.input}
+              className="h-[56px] w-full rounded-[8px] bg-white pl-[29px] text-gray-800 placeholder:text-[13px] placeholder:font-medium placeholder:text-[#A39787] focus:outline-none focus:ring-2 focus:ring-[#DF6A3F] xl:w-[355px]"
               value={form.numeroTelefone}
               onChange={handleChange}
+              placeholder="Número de Telefone"
               required
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>
-              Senha <span className={"span"}>*</span>
-            </label>
+          <div className="relative mb-4 w-full xl:w-[355px]">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
-              className={styles.input}
+              className="h-[56px] w-full rounded-[8px] bg-white pl-[29px] pr-12 text-gray-800 placeholder:text-[13px] placeholder:font-medium placeholder:text-[#A39787] focus:outline-none focus:ring-2 focus:ring-[#DF6A3F]"
               value={form.password}
               onChange={handleChange}
+              placeholder="Senha"
               required
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-gray-700 cursor-pointer"
+            >
+              {showPassword ? (
+                <FiEyeOff size={20} color="#A39787" />
+              ) : (
+                <FiEye size={20} color="#A39787" />
+              )}
+            </button>
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="passwordConfirm" className={styles.label}>
-              Confirme a Senha <span className={"span"}>*</span>
-            </label>
+          <div className="relative mb-4 w-full xl:w-[355px]">
             <input
-              type="password"
+              type={showPasswordConfirm ? "text" : "password"}
               id="passwordConfirm"
               name="passwordConfirm"
-              className={styles.input}
+              className="h-[56px] w-full rounded-[8px] bg-white pl-[29px] pr-12 text-gray-800 placeholder:text-[13px] placeholder:font-medium placeholder:text-[#A39787] focus:outline-none focus:ring-2 focus:ring-[#DF6A3F]"
               value={form.passwordConfirm}
               onChange={handleChange}
+              placeholder="Confirme a Senha"
               required
             />
+            <button
+              type="button"
+              onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+              className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-gray-700 cursor-pointer"
+            >
+              {showPasswordConfirm ? (
+                <FiEyeOff size={20} color="#A39787" />
+              ) : (
+                <FiEye size={20} color="#A39787" />
+              )}
+            </button>
           </div>
 
-          {error && <div className={styles.error}>{error}</div>}
-
-          <button type="submit" className={styles.button}>
+          <button 
+            type="submit" 
+            className="flex h-[50px] w-full items-center justify-center rounded-[6.5px] bg-[#DF6A3F] text-white
+                       transition-colors duration-300 hover:bg-[#ee3c39] xl:w-[355px] cursor-pointer"
+          >
             Cadastrar
           </button>
-        </form>
 
-        <p>
-          Deseja voltar ao login? <a href="/login">Clique aqui</a>
-        </p>
+          <p className="mt-4 w-full text-left text-white xl:w-[355px]">
+            Já tem uma conta?{" "}
+            <a href="/login" className="font-bold text-white no-underline hover:underline">
+              Fazer login
+            </a>
+          </p>
+        </form>
       </div>
 
-      {/* Div da imagem lateral (ativa apenas em 1024×600 e 1280×800) */}
-      <div className={styles.bg}></div>
+      <div 
+        className="hidden flex-1 bg-cover bg-center bg-no-repeat xl:block xl:h-screen
+                   bg-[url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0')]"
+      ></div>
     </div>
   );
-    return (
-        <div className="bg-black-900 " style={{ backgroundImage: `url(https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundSize: 'cover', backgroundPosition: 'center', }}>
-            <div className={styles.container}>
-                <img src={logo} alt="Logo" className={styles.logo} />
-                <h2>Insira suas informações</h2>
-                <form className={styles.form} id="cadastrarForm" onSubmit={handleSubmit} method="POST" >
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="firstName" className={styles.label}>Primeiro Nome <span className={"span"}>*</span></label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            className={styles.input}
-                            value={form.firstName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="lastName" className={styles.label}>Sobrenome <span className={"span"}>*</span></label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            className={styles.input}
-                            value={form.lastName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="cpf" className={styles.label}>CPF <span className={"span"}>*</span></label>
-                        <input
-                            type="text"
-                            id="cpf"
-                            name="cpf"
-                            className={styles.input}
-                            value={form.cpf}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="email" className={styles.label}>Email <span className={"span"}>*</span></label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            className={styles.input}
-                            value={form.email}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="numeroTelefone" className={styles.label}>Número de Telefone <span className={"span"}>*</span></label>
-                        <input
-                            type="text"
-                            id="numeroTelefone"
-                            name="numeroTelefone"
-                            className={styles.input}
-                            value={form.numeroTelefone}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="password" className={styles.label}>Senha <span className={"span"}>*</span></label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            className={styles.input}
-                            value={form.password}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="passwordConfirm" className={styles.label}>Confirme a Senha <span className={"span"}>*</span></label>
-                        <input
-                            type="password"
-                            id="passwordConfirm"
-                            name="passwordConfirm"
-                            className={styles.input}
-                            value={form.passwordConfirm}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    {error && <div className={styles.error}>{error}</div>}
-                    <button type="submit" className={styles.button}>Cadastrar</button>
-                </form>
-                <p className="pcadastrar">Deseja voltar ao login? <a href="/login">Clique aqui</a></p>
-            </div>
-        </div>
-    );
 };
 
 export default Cadastrar;
