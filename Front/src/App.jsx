@@ -28,6 +28,7 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/ocorrencias" element={<Ocorrencias />} />
+        <Route path="/nova-ocorrencia" element={<NovaOcorrencia />} />
         <Route path="/funcionarios" element={<Funcionarios />} />
         <Route path="/perfil" element={<Perfil />} />
         {/* Adicione aqui outras rotas que devem ter o layout principal */}
