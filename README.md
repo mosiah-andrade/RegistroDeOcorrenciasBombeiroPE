@@ -1,4 +1,4 @@
-![Logo](https://raw.githubusercontent.com/mosiah-andrade/RegistroDeOcorrenciasBombeiroPE/main/Front/public/imgs/logo.png)
+![Logo](Front/public/logo.png)
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]() 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
