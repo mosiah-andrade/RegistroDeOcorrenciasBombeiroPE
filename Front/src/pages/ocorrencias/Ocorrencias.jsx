@@ -86,8 +86,7 @@ useEffect(() => {
         responsavel: { nome: '', cargo: '' },
         regiao: '',
         tipo: '',
-        data: '',
-        status: 'Aberto'
+        data: ''
     });
 
     const handleSubmit = async (e) => {
@@ -135,6 +134,49 @@ useEffect(() => {
         );
     }
 
+    const handleDelete = async (ocorrenciaId) => {
+        // Confirmação antes de excluir
+        if (!window.confirm(`Tem certeza que deseja excluir a ocorrência ID: ${ocorrenciaId}?`)) {
+            return; // Cancela se o usuário clicar em "Cancelar"
+        }
+
+        try {
+            const response = await fetch(`${apiUrl}/api/ocorrencias/${ocorrenciaId}`, {
+                method: 'DELETE',
+                headers: {
+                    // Se sua API exigir autenticação, adicione o header Authorization aqui
+                    // 'Authorization': `Bearer ${seuToken}`,
+                    'Content-Type': 'application/json', // Embora DELETE não precise de corpo, é boa prática
+                },
+            });
+
+            if (response.ok) {
+                alert('Ocorrência excluída com sucesso!');
+                // Atualiza a lista de ocorrências no frontend
+                // Opção 1: Rebuscar todos os dados (mais simples)
+                fetchOcorrencias();
+
+                // Opção 2: Remover o item do estado local (mais performático se a lista for grande)
+                // setOcorrencias(prevOcorrencias =>
+                //     prevOcorrencias.filter(ocorrencia => ocorrencia._id !== ocorrenciaId)
+                // );
+
+                // Ajusta a página atual se a última ocorrência da página foi excluída
+                if (currentOcorrencias.length === 1 && currentPage > 1) {
+                    setCurrentPage(currentPage - 1);
+                }
+
+            } else {
+                // Tenta pegar uma mensagem de erro da API
+                const errorData = await response.json().catch(() => ({})); // Pega JSON ou objeto vazio
+                alert(`Erro ao excluir ocorrência: ${errorData.message || response.statusText || 'Erro desconhecido'}`);
+            }
+        } catch (error) {
+            console.error('Erro de rede ao excluir:', error);
+            alert('Houve um erro de conexão ao tentar excluir.');
+        }
+    };
+
     return (
         <div className="bg-stone-50 min-h-screen p-4 sm:p-6 lg:p-8 font-sans">
            
@@ -176,7 +218,7 @@ useEffect(() => {
                 </div>
 
                 {/* Tabela de Ocorrências */}
-                <OcorrenciasTable data={currentOcorrencias} />
+                <OcorrenciasTable data={currentOcorrencias} onDelete={handleDelete}/>
 
                 <div className="px-6 py-3 flex flex-wrap gap-4 justify-between items-center border-t border-gray-200">
                     <button 

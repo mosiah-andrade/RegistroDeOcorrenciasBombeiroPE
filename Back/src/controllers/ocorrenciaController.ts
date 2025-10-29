@@ -11,6 +11,31 @@ export const getAllOcorrencias = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteOcorrencia = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    // Validação básica do ID
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ message: 'ID inválido' });
+    }
+
+    const deletedOcorrencia = await Ocorrencia.findByIdAndDelete(id);
+
+    if (!deletedOcorrencia) {
+      return res.status(404).json({ message: 'Ocorrência não encontrada' });
+    }
+
+    // Responde com sucesso (geralmente sem corpo ou com uma mensagem)
+    return res.status(200).json({ message: 'Ocorrência excluída com sucesso' });
+    // Ou pode usar res.status(204).send(); // Status 204 No Content
+
+  } catch (err: any) {
+    console.error("Erro ao excluir ocorrência:", err); // Log do erro no servidor
+    return res.status(500).json({ message: 'Erro interno ao excluir ocorrência', error: err.message });
+  }
+};
+
 export const getOcorrenciasStats = async (req: Request, res: Response) => {
   try {
     const stats = await Ocorrencia.aggregate([
@@ -45,12 +70,12 @@ export const createOcorrencia = async (req: Request, res: Response) => {
     };
 
     if (data) ocorrenciaData.data = new Date(data);
-    if (status) ocorrenciaData.status = String(status);
 
     const ocorrencia = new Ocorrencia(ocorrenciaData);
     await ocorrencia.save();
     return res.status(201).json(ocorrencia);
   } catch (err: any) {
+    console.error("Erro detalhado ao criar ocorrência:", err);
     return res.status(500).json({ message: 'Erro ao criar ocorrência', error: err.message });
   }
 };
