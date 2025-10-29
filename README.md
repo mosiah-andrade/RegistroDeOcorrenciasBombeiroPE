@@ -1,13 +1,9 @@
-![Logo]
-
-
 [![Status](https://img.shields.io/badge/status-active-success.svg)]() 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Deploy](https://img.shields.io/badge/deploy-vercel-black.svg?logo=vercel)](https://registro-de-ocorrencias-bombeiro-pe.vercel.app/)
-[![Contributions github](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?logo=github)](https://github.com/mosiah-andrade/RegistroDeOcorrenciasBombeiroPE/issues)
+[![Deploy](https://img.shields.io/badge/deploy-render-black.svg?logo=render)](https:///)
 
----
-# Nino
+# ![Logo](Front/public/logo.png)
 Sistema para registro e gestão de ocorrências.
 
 Nino é um felino curioso e aventureiro, que encanta por sua personalidade leve e carinhosa. Em suas descobertas, ele se arrisca, sobe alto e observa o mundo com atenção, sempre guiado pela vontade de explorar e aprender.
@@ -32,12 +28,10 @@ Inspirada nessa história, a NINO surge como um projeto que une afetividade, cor
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 ![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
-![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white)
 
 
 ### Backend e Banco de Dados  
-![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white)
 ![Mongoose](https://img.shields.io/badge/Mongoose-880000?logo=mongoose&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)

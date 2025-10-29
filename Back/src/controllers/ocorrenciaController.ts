@@ -4,12 +4,13 @@ import Ocorrencia, { StatusOcorrencia } from '../models/Ocorrencia';
 
 export const getAllOcorrencias = async (req: Request, res: Response) => {
   try {
-    const { regiao, tipo, status, responsavelNome, startDate, endDate } = req.query;
+    const { regiao, tipo, status, responsavelNome, descricao, startDate, endDate } = req.query;
     const filter: any = {};
 
     if (regiao) filter.regiao = { $regex: String(regiao), $options: 'i' };
     if (tipo) filter.tipo = { $regex: String(tipo), $options: 'i' };
-    if (status) filter.status = String(status); // Status deve ser correspondência exata
+    if (descricao) filter.descricao = { $regex: String(descricao), $options: 'i' };
+    if (status) filter.status = String(status);
     if (responsavelNome) filter['responsavel.nome'] = { $regex: String(responsavelNome), $options: 'i' };
 
     if (startDate || endDate) {
@@ -42,13 +43,13 @@ export const getOcorrenciasStats = async (req: Request, res: Response) => {
 
 export const createOcorrencia = async (req: Request, res: Response) => {
   try {
-    const { responsavel, regiao, tipo, data, status } = req.body;
+    const { responsavel, regiao, tipo, descricao, data, status } = req.body;
 
     if (!responsavel || !responsavel.nome || !responsavel.cargo) {
       return res.status(400).json({ message: 'Campos obrigatórios ausentes: responsavel.nome e responsavel.cargo' });
     }
-    if (!regiao || !tipo) {
-      return res.status(400).json({ message: 'Campos obrigatórios ausentes: regiao e tipo' });
+    if (!regiao || !tipo || !descricao) {
+      return res.status(400).json({ message: 'Campos obrigatórios ausentes: região, tipo e descrição' });
     }
 
     const ocorrenciaData: any = {
@@ -58,6 +59,7 @@ export const createOcorrencia = async (req: Request, res: Response) => {
       },
       regiao: String(regiao),
       tipo: String(tipo),
+      descricao: String(descricao)
     };
 
     if (data) ocorrenciaData.data = new Date(data);
@@ -65,6 +67,7 @@ export const createOcorrencia = async (req: Request, res: Response) => {
 
     const ocorrencia = new Ocorrencia(ocorrenciaData);
     await ocorrencia.save();
+    
     return res.status(201).json(ocorrencia);
   } catch (err: any) {
     console.error("Erro detalhado ao criar ocorrência:", err);
@@ -80,11 +83,11 @@ export const updateOcorrencia = async (req: Request, res: Response) => {
     }
 
     const updates: any = req.body;
-
     const allowed: any = {};
+    
     if (updates.responsavel) {
       if (!updates.responsavel.nome || !updates.responsavel.cargo) {
-        return res.status(400).json({ message: 'Ao atualizar, responsavel deve conter nome e cargo.' });
+        return res.status(400).json({ message: 'Ao atualizar, responsável deve conter nome e cargo.' });
       }
       allowed.responsavel = {
         nome: String(updates.responsavel.nome),
@@ -93,6 +96,7 @@ export const updateOcorrencia = async (req: Request, res: Response) => {
     }
     if (updates.regiao) allowed.regiao = String(updates.regiao);
     if (updates.tipo) allowed.tipo = String(updates.tipo);
+    if (updates.descricao) allowed.descricao = String(updates.descricao);
     if (updates.data) allowed.data = new Date(updates.data);
     if (updates.status) allowed.status = String(updates.status);
 
@@ -124,12 +128,13 @@ export const deleteOcorrencia = async (req: Request, res: Response) => {
 
 export const filterOcorrencias = async (req: Request, res: Response) => {
   try {
-    const { regiao, tipo, responsavelNome, startDate, endDate, status } = req.query; // Adicionado status
+    const { regiao, tipo, responsavelNome, startDate, endDate, status, descricao } = req.query; 
     const filter: any = {};
 
     if (regiao) filter.regiao = { $regex: String(regiao), $options: 'i' };
     if (tipo) filter.tipo = { $regex: String(tipo), $options: 'i' };
-    if (status) filter.status = String(status); // Adicionado filtro de status
+    if (descricao) filter.descricao = { $regex: String(descricao), $options: 'i' };
+    if (status) filter.status = String(status); 
     if (responsavelNome) filter['responsavel.nome'] = { $regex: String(responsavelNome), $options: 'i' };
 
     if (startDate || endDate) {
