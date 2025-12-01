@@ -11,68 +11,119 @@ export interface IResponsavel {
   nome: string;
   cargo: string;
 }
+export interface IMidia {
+  url: string;
+  hash?: string;
+  mimetype?: string;
+  tamanho?: number;
+  createdAt: Date;
+}
+export interface IGpsInfo {
+  latitude: number;
+  longitude: number;
+  precisao?: number;
+  timestamp: Date;
+}
+export interface IAssinatura {
+  pessoa: string;
+  url: string;
+  createdAt: Date;
+}
+export interface ITimelineEvento {
+  evento: string; //aq vai ser tipo "criado", "editado" "status-atualizado" etc
+  autor: string; 
+  timestamp: Date;
+}
 export interface IOcorrencia extends Document {
   responsavel: IResponsavel;
   regiao: string;
   tipo: string;
   data?: Date;
-  status: StatusOcorrencia;
-
-  getResponsavel(): IResponsavel;
-  setResponsavel(Resp: IResponsavel): void;
-  getRegiao(): string;
-  setRegiao(Reg: string): void;
-  getTipo(): string;
-  setTipo(Tip: string): void;
-
-  getStatus(): StatusOcorrencia;
-  setStatus(Stat: StatusOcorrencia): void;
-}
-class OcorrenciaClass {
-  responsavel!: IResponsavel;
-  regiao!: string;
-  tipo!: string;
-  data?: Date;
-  status!: StatusOcorrencia;
-
-  constructor(responsavel?: IResponsavel, regiao?: string, tipo?: string,  data?: Date, status?: StatusOcorrencia) {
-    if (responsavel) this.responsavel = responsavel;
-    if (regiao) this.regiao = regiao;
-    if (tipo) this.tipo = tipo;
-    if (data) this.data = data;
-    if (status) this.status = status;
-  }
-
-  getResponsavel() { return this.responsavel; }
-  setResponsavel(Resp: IResponsavel) { this.responsavel = Resp; }
-
-  getRegiao() { return this.regiao; }
-  setRegiao(Reg: string) { this.regiao = Reg; }
-
-  getTipo() { return this.tipo; }
-  setTipo(Tip: string) { this.tipo = Tip; }
+  descricao?: string;
+  viatura?: string;
+  equipe?: string[];
   
-  getStatus() { return this.status; }
-  setStatus(Stat: StatusOcorrencia) { this.status = Stat; }
+  gps?: IGpsInfo;
+  
+  fotos: IMidia[];
+  videos: IMidia[];
+  assinaturas: IAssinatura[];
+
+  sincronizado: boolean;
+  versao: number; //verificar conflitos nas versoes (offline)
+  lastModifiedAt?: Date;
+  lastModifiedBy?: string;
+
+  timeline: ITimelineEvento[];
+
+  status: StatusOcorrencia;
 }
 
-const OcorrenciaSchema = new Schema<IOcorrencia>({
-  responsavel: {
-    nome: { type: String, required: true },
-    cargo: { type: String, required: true }
-  },
-  regiao: { type: String, required: true },
-  tipo: { type: String, required: true },
-  data: { type: Date, default: Date.now },
-  status: {
-    type: String,
-    enum: Object.values(StatusOcorrencia),
-    required: true,
-    default: StatusOcorrencia.ABERTO
-  }
-}, { timestamps: true });
+const MidiaSchema = new Schema<IMidia>({
+  url: { type: String, required: true },
+  hash: { type: String },
+  mimetype: { type: String },
+  tamanho: { type: Number },
+  createdAt: { type: Date, default: Date.now }
+});
 
-OcorrenciaSchema.loadClass(OcorrenciaClass);
+const GpsSchema = new Schema<IGpsInfo>({
+  latitude: { type: Number, required: true },
+  longitude: { type: Number, required: true },
+  precisao: { type: Number },
+  timestamp: { type: Date, default: Date.now }
+});
+
+const AssinaturaSchema = new Schema<IAssinatura>({
+  pessoa: { type: String, required: true },
+  url: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const TimelineSchema = new Schema<ITimelineEvento>({
+  evento: { type: String, required: true },
+  autor: { type: String, required: true },
+  timestamp: { type: Date, default: Date.now }
+});
+
+const OcorrenciaSchema = new Schema<IOcorrencia>(
+  {
+    responsavel: {
+      nome: { type: String, required: true },
+      cargo: { type: String, required: true }
+    },
+
+    regiao: { type: String, required: true },
+    tipo: { type: String, required: true },
+    data: { type: Date, default: Date.now },
+
+    descricao: { type: String },
+    viatura: { type: String },
+    equipe: [{ type: String }],
+
+    gps: GpsSchema,
+
+    fotos: [MidiaSchema],
+    videos: [MidiaSchema],
+    assinaturas: [AssinaturaSchema],
+
+    sincronizado: { type: Boolean, default: true },
+
+    versao: { type: Number, default: 1 },
+    lastModifiedAt: { type: Date },
+    lastModifiedBy: { type: String },
+
+    timeline: [TimelineSchema],
+
+    status: {
+      type: String,
+      enum: Object.values(StatusOcorrencia),
+      required: true,
+      default: StatusOcorrencia.ABERTO
+    }
+  },
+  { timestamps: true }
+);
 
 const Ocorrencia = mongoose.model<IOcorrencia>('Ocorrencia', OcorrenciaSchema);
 export default Ocorrencia;
