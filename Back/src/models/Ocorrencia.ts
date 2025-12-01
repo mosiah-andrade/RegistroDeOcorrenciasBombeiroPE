@@ -13,7 +13,7 @@ export interface IResponsavel {
 }
 export interface IMidia {
   url: string;
-  hash?: string;
+  hash: string;
   mimetype?: string;
   tamanho?: number;
   createdAt: Date;
@@ -39,9 +39,9 @@ export interface IOcorrencia extends Document {
   regiao: string;
   tipo: string;
   data?: Date;
-  descricao?: string;
-  viatura?: string;
-  equipe?: string[];
+  descricao: string;
+  viatura: string;
+  equipe: string[];
   
   gps?: IGpsInfo;
   
@@ -61,7 +61,7 @@ export interface IOcorrencia extends Document {
 
 const MidiaSchema = new Schema<IMidia>({
   url: { type: String, required: true },
-  hash: { type: String },
+  hash: { type: String, required: true},
   mimetype: { type: String },
   tamanho: { type: Number },
   createdAt: { type: Date, default: Date.now }
@@ -97,15 +97,15 @@ const OcorrenciaSchema = new Schema<IOcorrencia>(
     tipo: { type: String, required: true },
     data: { type: Date, default: Date.now },
 
-    descricao: { type: String },
-    viatura: { type: String },
-    equipe: [{ type: String }],
+    descricao: { type: String, required: true },
+    viatura: { type: String, required: true },
+    equipe: [{ type: String, requiered: true }],
 
     gps: GpsSchema,
 
-    fotos: [MidiaSchema],
-    videos: [MidiaSchema],
-    assinaturas: [AssinaturaSchema],
+    fotos: { type: [MidiaSchema], default: [] },
+    videos: { type: [MidiaSchema], default: [] },
+    assinaturas: { type: [AssinaturaSchema], default: [] },
 
     sincronizado: { type: Boolean, default: true },
 
@@ -113,7 +113,7 @@ const OcorrenciaSchema = new Schema<IOcorrencia>(
     lastModifiedAt: { type: Date },
     lastModifiedBy: { type: String },
 
-    timeline: [TimelineSchema],
+    timeline: { type: [TimelineSchema], default: [] },
 
     status: {
       type: String,
