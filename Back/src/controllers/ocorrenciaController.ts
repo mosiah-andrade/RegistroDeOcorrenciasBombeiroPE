@@ -116,6 +116,15 @@ export const createOcorrencia = async (req: Request, res: Response) => {
       viatura,
       equipe,
       gps,
+      fotos,
+      videos,
+      assinaturas, 
+      status,
+      sincronizado,
+      versao,
+      lastModifiedAt,
+      lastModifiedBy,
+      timeline
     } = req.body;
 
     if (!responsavel || !responsavel.nome || !responsavel.cargo) {
@@ -124,18 +133,6 @@ export const createOcorrencia = async (req: Request, res: Response) => {
     if (!regiao || !tipo) {
       return res.status(400).json({ message: 'Campos obrigatórios ausentes: região e tipo' });
     }
-    if (!descricao || !viatura || !equipe) {
-      return res.status(400).json({ message: 'Campos obrigatórios ausentes: descrição, viatura e equipe' });
-    }
-    if (gps) {
-      if (
-        typeof gps.latitude !== "number" || typeof gps.longitude !== "number"
-      ){
-        return res.status(400).json({ message: 'GPS inválido: latitude e longitude devem ser números' })
-      }
-    }
-    const now = new Date();
-    const autor = responsavel.nome;
 
     const ocorrenciaData: any = {
       responsavel: {
@@ -149,27 +146,20 @@ export const createOcorrencia = async (req: Request, res: Response) => {
       viatura,
       equipe,
 
-      gps: gps || undefined,
-      fotos: [],
-      videos: [],
-      assinaturas: [],
+      gps,
+      fotos,
+      videos,
+      assinaturas,
 
-      status: "aberto",
+      status,
 
-      sincronizado:  true,
-      versao: 1,
+      sincronizado: sincronizado ?? true,
+      versao: versao ?? 1,
 
-      createdAt: now,
-      lastModifiedAt: now,
-      lastModifiedBy: autor,
+      lastModifiedAt,
+      lastModifiedBy,
 
-      timeline: [
-        {
-          evento: "criado",
-          autor: autor,
-          timestamp: now
-        }
-      ]
+      timeline: timeline ?? []
     };
 
     if (data) ocorrenciaData.data = new Date(data);
@@ -179,7 +169,7 @@ export const createOcorrencia = async (req: Request, res: Response) => {
     
     return res.status(201).json(ocorrencia);
   } catch (err: any) {
-    console.error("Erro ao criar ocorrência:", err);
+    console.error("Erro detalhado ao criar ocorrência:", err);
     return res.status(500).json({ message: 'Erro ao criar ocorrência', error: err.message });
   }
 };
@@ -187,86 +177,46 @@ export const createOcorrencia = async (req: Request, res: Response) => {
 export const updateOcorrencia = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-
     if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({ message: 'ID inválido' });
     }
 
-    const ocorrencia = await Ocorrencia.findById(id);
-    if (!ocorrencia) {
-      return res.status(404).json({ message: 'Ocorrência não encontrada' });
-    }
-
-    const updates = req.body;
-    const forbidden = [
-      "versao",
-      "sincronizado",
-      "lastModifiedAt",
-      "lastModifiedBy",
-      "timeline",
-      "fotos",
-      "videos",
-      "assinaturas",
-      "createdAt",
-      "updatedAt"
-    ];
-
-    for (const key of forbidden) {
-      if (key in updates) delete updates[key];
-    }
-
+    const updates: any = req.body;
+    const allowed: any = {};
+    
     if (updates.responsavel) {
       if (!updates.responsavel.nome || !updates.responsavel.cargo) {
-        return res.status(400).json({ message: "Ao atualizar, responsável deve conter nome e cargo." });
+        return res.status(400).json({ message: 'Ao atualizar, responsável deve conter nome e cargo.' });
       }
-      ocorrencia.responsavel = {
+      allowed.responsavel = {
         nome: String(updates.responsavel.nome),
         cargo: String(updates.responsavel.cargo)
       };
     }
+    if (updates.regiao) allowed.regiao = String(updates.regiao);
+    if (updates.tipo) allowed.tipo = String(updates.tipo);
+    if (updates.data) allowed.data = new Date(updates.data);
+    if (updates.descricao) allowed.descricao = updates.descricao;
+    if (updates.viatura) allowed.viatura = updates.viatura;
+    if (updates.equipe) allowed.equipe = updates.equipe;
+    if (updates.gps) allowed.gps = updates.gps;
+    if (updates.fotos) allowed.fotos = updates.fotos;
+    if (updates.videos) allowed.videos = updates.videos;
+    if (updates.assinaturas) allowed.assinaturas = updates.assinaturas;
+    if (updates.sincronizado !== undefined ) allowed.sincronizado = updates.sincronizado;
+    if (updates.versao) allowed.versao = updates.versao;
+    if (updates.lastModifiedAt)
+      allowed.lastModifiedAt = new Date(updates.lastModifiedAt);
+    if (updates.lastModifiedBy) allowed.lastModifiedBy = updates.lastModifiedBy;
+    if (updates.timeline)allowed.timeline = updates.timeline;
+    if (updates.status) allowed.status = updates.status;
 
-    if (updates.regiao) ocorrencia.regiao = String(updates.regiao);
-    if (updates.tipo) ocorrencia.tipo = String(updates.tipo);
-    if (updates.data) ocorrencia.data = new Date(updates.data);
-    if (updates.descricao) ocorrencia.descricao = updates.descricao;
-    if (updates.viatura) ocorrencia.viatura = updates.viatura;
-    if (updates.equipe) ocorrencia.equipe = updates.equipe;
-    if (updates.gps) {
-      if ( 
-        typeof updates.gps.latitude !== "number" || typeof updates.gps.longitude !== "number"
-      ) {
-        return res.status(400).json({ message: 'GPS inválido' })
-      }
-      ocorrencia.gps = updates.gps;
-    }
-    if (updates.status) {
-      ocorrencia.status = updates.status;
-    }
+    const updated = await Ocorrencia.findByIdAndUpdate(id, allowed, { new: true });
+    if (!updated) return res.status(404).json({ message: 'Ocorrência não encontrada' });
 
-    const now = new Date();
-    const autor = updates?.autor ?? ocorrencia.responsavel.nome;
-
-    ocorrencia.lastModifiedAt = now;
-    ocorrencia.lastModifiedBy = autor;
-
-    ocorrencia.versao += 1;
-
-    ocorrencia.timeline.push({
-      evento: "editado",
-      autor,
-      timestamp: now
-    });
-
-    await ocorrencia.save();
-
-    return res.json(ocorrencia);
-
+    return res.json(updated);
   } catch (err: any) {
-    console.error("Erro ao atualizar ocorrência:", err);
-    return res.status(500).json({
-      message: 'Erro ao atualizar ocorrência',
-      error: err.message
-    });
+    return res.status(500).json({ message: 'Erro ao atualizar ocorrência', error: err.message });
   }
 };
 
@@ -350,86 +300,5 @@ export const getFiltroOptions = async (req: Request, res: Response) => {
 
   } catch (err: any) {
     return res.status(500).json({ message: 'Erro ao buscar opções de filtro', error: err.message });
-  }
-};
-
-export const syncOcorrenciasOffline = async (req: Request, res: Response) => {
-  try {
-    const payload = req.body;
-    const { idOffline, dados, versao } = payload;
-
-    if (!dados) {
-      return res.status(400).json({ message: "Corpo inválido para sync." });
-    }
-
-    if (!dados._id) {
-      const now = new Date();
-
-      const ocorrencia = new Ocorrencia({
-        ...dados,
-        sincronizado: true,
-        versao: versao ?? 1,
-        lastModifiedAt: now,
-        lastModifiedBy: dados.responsavel?.nome ?? "offline",
-        timeline: [
-          ...(dados.timeline ?? []),
-          {
-            evento: "sincronizado",
-            autor: dados.responsavel?.nome ?? "offline",
-            timestamp: now
-          }
-        ]
-      });
-
-      await ocorrencia.save();
-
-      return res.status(201).json({
-        message: "Ocorrência criada via sync offline.",
-        ocorrencia
-      });
-    }
-
-    const ocorrenciaBD = await Ocorrencia.findById(dados._id);
-
-    if (!ocorrenciaBD) {
-      return res.status(404).json({ message: "Ocorrência não encontrada no servidor." });
-    }
-
-    // conflito de versão é mais antiga que a do servidor
-    if (versao < ocorrenciaBD.versao) {
-      return res.status(409).json({
-        message: "Conflito de versão: servidor possui versão mais recente.",
-        servidor: ocorrenciaBD,
-        cliente: dados
-      });
-    }
-
-    const now = new Date();
-    Object.assign(ocorrenciaBD, dados);
-
-    ocorrenciaBD.sincronizado = true;
-    ocorrenciaBD.lastModifiedAt = now;
-    ocorrenciaBD.lastModifiedBy = dados.responsavel?.nome ?? "offline";
-    ocorrenciaBD.versao = versao + 1;
-
-    ocorrenciaBD.timeline.push({
-      evento: "sincronizado",
-      autor: dados.responsavel?.nome ?? "offline",
-      timestamp: now
-    });
-
-    await ocorrenciaBD.save();
-
-    return res.status(200).json({
-      message: "Ocorrência sincronizada com sucesso.",
-      ocorrencia: ocorrenciaBD
-    });
-
-  } catch (err: any) {
-    console.error("Erro no sync offline:", err);
-    return res.status(500).json({
-      message: "Erro ao sincronizar dados offline",
-      error: err.message
-    });
   }
 };
