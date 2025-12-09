@@ -1,70 +1,6 @@
-import crypto from "crypto";
-import path from "path";
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import Ocorrencia, { StatusOcorrencia } from '../models/Ocorrencia';
-
-export const addMidia = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const files = req.files as Express.Multer.File[];
-
-    if (!files || files.length === 0) {
-      return res.status(400).json({ message: "Nenhum arquivo enviado." });
-    }
-
-    const ocorrencia = await Ocorrencia.findById(id);
-    if (!ocorrencia) {
-      return res.status(404).json({ message: "Ocorrência não encontrada." });
-    }
-
-    for (const file of files) {
-      const hash = crypto
-        .createHash("sha256")
-        .update(file.path)
-        .digest("hex");
-
-      const midia = {
-        url: "/uploads/midias/" + file.filename,
-        hash,
-        mimetype: file.mimetype,
-        tamanho: file.size,
-        createdAt: new Date()
-      };
-
-      if (file.mimetype.startsWith("video")) {
-        ocorrencia.videos.push(midia);
-      } else {
-        ocorrencia.fotos.push(midia);
-      }
-
-      ocorrencia.timeline.push({
-        evento: file.mimetype.startsWith("video")
-          ? "video_adicionado"
-          : "foto_adicionada",
-        autor: req.body?.autor || "sistema",
-        timestamp: new Date()
-      });
-
-      ocorrencia.versao += 1;
-      ocorrencia.lastModifiedAt = new Date();
-      ocorrencia.lastModifiedBy = req.body?.autor || "sistema";
-    }
-
-    await ocorrencia.save();
-
-    return res.status(200).json({
-      message: "Mídias adicionadas com sucesso!",
-      ocorrencia
-    });
-  } catch (err: any) {
-    console.error(err);
-    return res.status(500).json({
-      message: "Erro ao anexar mídia",
-      error: err.message
-    });
-  }
-};
 
 export const getAllOcorrencias = async (req: Request, res: Response) => {
   try {
@@ -254,7 +190,7 @@ export const filterOcorrencias = async (req: Request, res: Response) => {
     }
 
     if (lastModifiedAt) {
-      filter.lastModifiedAt = {
+      filter['lastModified.at'] = {
         $gte: new Date(String(lastModifiedAt))
       };
     }
